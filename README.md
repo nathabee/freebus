@@ -24,7 +24,7 @@ The app will enable users to easily book seats on the Citizen Bus, providing a s
 ![Architecture Diagram](https://nathabee.de/chartDiagramFreeBus.png) 
 
  
-## Functional Specifications:
+## Requirements:
 
 - **User Interface (UI)**: The application will provide a clean, intuitive UI to allow users of all ages to easily navigate, make seat reservations, and view trip details.
 - **Accessibility**: Designed to comply with WCAG standards to ensure older individuals can comfortably use the app. Features include larger buttons, clear labels, voice compatibility, and high-contrast mode.
@@ -34,6 +34,92 @@ The app will enable users to easily book seats on the Citizen Bus, providing a s
 - **Performance Optimization**: The frontend will utilize code-splitting, lazy loading, and caching to improve performance, ensuring that even older devices can run the application smoothly.
 - **Multi-Language Support**: The interface will be multilingual, supporting multiple languages to cater to diverse communities.
 - **Error Handling**: User-friendly error messages will guide users in case of invalid inputs or other issues, improving the overall user experience.
+
+
+  
+
+## User Interface Specification
+
+- **Menu Navigation**: The main menu will include options such as `Home`, `Reservation`, `Ticket History`, `User Dashboard`, and `Admin Tools`. The visibility of these options will be role-dependent.
+
+  - **Overview** view of the FreeBus services and announcements.
+  - **Reservation**: Allows users to view the available routes, select a date from the calendar, and reserve a seat.
+  - **Ticket History**: Displays past and upcoming reservations along with ticket details.
+  - **User Dashboard**: Provides access to personal information, allowing users to update contact details or view reservation history.
+  - **Admin Tools**: Accessible only by users with admin or supervisor roles to manage users, reservations, routes, and calendars.
+
+- **Role-Based Access Control**: Depending on the user role, menu items and features will vary. For example, supervisors will have the ability to modify user data, while regular users can only make reservations.
+
+### global layout of the application will consist of:
+
+\*\*Header\*\*: A navigation bar at the top of the page with the main menu options. The active menu item will be highlighted to provide a clear indication of the user's current page.
+
+\*\*Main Window\*\*: The center of the screen will display the primary content. By default, the \*\*Home\*\* page will be shown, but once the user is logged in, it will switch to the \*\*Dashboard\*\* view.
+
+\*\*Footer\*\*: A footer at the bottom of the page, which can include links to contact information, privacy policies, or other relevant details.
+
+
+### User Registration and Validation
+
+- Users register through a form with required details (name, email, address, disabilities).
+
+- Users are put into a pending state until validated by an admin.
+
+- \*\*Admin Validation Process\*\*: Admins can review, approve, request modifications, or create new users directly.
+
+
+
+### Reservation Creation
+
+- Users navigate to the \*\*Reservation Page\*\* to create reservations.
+
+- Available routes are shown, allowing users to select a date, time, and destination.
+
+- Users can modify or cancel reservations through their dashboard.
+
+### Calendar Availability
+
+- The \*\*Calendar Page\*\* displays routes in a calendar view.
+
+- Only available slots are visible, showing the number of seats available.
+
+
+ 
+
+### global layout of the application will consist of:
+
+  - **Header**: A navigation bar at the top of the page with the main menu options. The active menu item will be highlighted to provide a clear indication of the user's current page.
+
+  - **Main Window**: The center of the screen will display the primary content. By default, the **Home** page will be shown, but once the user is logged in, it will switch to the **Dashboard** view.
+
+  - **Footer**: A footer at the bottom of the page, which can include links to contact information, privacy policies, or other relevant details.
+
+
+
+### User Registration and Validation
+
+- Users register through a form with required details (name, email, address, disabilities).
+
+- Users are put into a pending state until validated by an admin.
+
+- **Admin Validation Process**: Admins can review, approve, request modifications, or create new users directly.
+
+
+
+### Reservation Creation
+
+- Users navigate to the **Reservation Page** to create reservations.
+
+- Available routes are shown, allowing users to select a date, time, and destination.
+
+- Users can modify or cancel reservations through their dashboard.
+
+### Calendar Availability
+
+- The **Calendar Page** displays routes in a calendar view.
+
+- Only available slots are visible, showing the number of seats available.
+
 
 
 ### User Model:
@@ -53,10 +139,97 @@ The **User Model** will be implemented as a **custom user model** in Django to a
   - The User model will be linked to reservations via a **ForeignKey relationship**, allowing easy tracking of which users have reserved which trips.
 
 
-- **User Model**: Stores user data such as name, email, password (hashed), age, and city of residence. This data is used for user authentication, registration, and validation.
-- **Reservation Model**: Contains information about user reservations, including trip date, time, destination, and seat availability. It ensures that users can reserve seats and view reservation history.
-- **Bus Route Model**: Stores data on bus routes, destinations, and schedules. This allows users to see available trips and make informed decisions on reservations.
-- **Admin Model**: Manages data related to admin users responsible for validating new users, managing trip schedules, and overseeing reservations. This model ensures the system remains secure and reliable.
+### User Model
+
+The **User Model** will be implemented as a **custom user model** in Django to allow flexibility for storing additional user data beyond the standard fields. This will include:
+
+- **Fields**:
+
+  - `username`: The user's unique identifier.
+  - `email`: A required field for registration and communication.
+  - `password`: Stored securely using Django's built-in hashing mechanism.
+  - `first_name` and `last_name`: Personal information to address users.
+  - `age`: To prioritize users and analyze usage.
+  - `city_of_residence`: To ensure eligibility for service access (e.g., validation for specific cities).
+  - `is_verified`: Boolean flag for administrative approval, ensuring that the user resides within the supported regions.
+
+- **Custom Methods**:
+
+  - `verify_user()`: Allows admins to mark a user as verified after reviewing their details.
+
+- **Relationships**:
+
+  - The User model will be linked to reservations via a **ForeignKey relationship**, allowing easy tracking of which users have reserved which trips.
+
+### Route Model
+
+The **Route Model** defines the list of available activities and trips. Each route includes:
+
+- **Fields**:
+  - `route_name`: A descriptive name for the route (e.g., 'Trip to City X', 'Supermarket Visit', 'Christmas Market').
+  - `max_seats`: The maximum number of seats available on the bus for this route.
+  - `max_rolators_or_wheelchairs`: Defines the number of rolators or wheelchairs that can be transported per route.
+
+### Calendar Model
+
+The **Calendar Model** defines which routes are scheduled on which days:
+
+- **Fields**:
+
+  - `date`: The specific date of the route.
+  - `route`: A reference to the **Route Model**, establishing which route is scheduled.
+  - `available_seats`: The number of seats still available for this route on this date.
+
+- **Relationships**:
+
+  - Each calendar entry is linked to a **Route** and many **Reservation** entries to keep track of who has reserved which seat.
+
+### Reservation Model
+
+The **Reservation Model** handles the user reservations for specific routes and dates:
+
+- **Fields**:
+
+  - `user`: A reference to the **User Model** representing the person making the reservation.
+  - `calendar_entry`: A reference to the **Calendar Model** representing the specific route and date.
+  - `number_of_seats_reserved`: The number of seats reserved by the user.
+
+- **Relationships**:
+
+  - Linked to the **User** and **Calendar** models to manage reservation data and track availability.
+
+### Ticket Model
+
+The **Ticket Model** stores information about generated tickets:
+
+- **Fields**:
+  - `reservation`: A reference to the **Reservation Model** that the ticket is associated with.
+  - `ticket_details`: Contains journey details, seat information, and other relevant information.
+  - `issued_at`: The timestamp when the ticket was generated.
+
+This high-level model specification outlines the key relationships and fields required to effectively manage the reservation and ticketing process for the Citizen Bus project.
+
+The **User Model** will be implemented as a **custom user model** in Django to allow flexibility for storing additional user data beyond the standard fields. This will include:
+
+- **Fields**:
+
+  - `username`: The user's unique identifier.
+  - `email`: A required field for registration and communication.
+  - `password`: Stored securely using Django's built-in hashing mechanism.
+  - `first_name` and `last_name`: Personal information to address users.
+  - `age`: To prioritize users and analyze usage.
+  - `city_of_residence`: To ensure eligibility for service access (e.g., validation for specific cities).
+  - `is_verified`: Boolean flag for administrative approval, ensuring that the user resides within the supported regions.
+
+- **Custom Methods**:
+
+  - `verify_user()`: Allows admins to mark a user as verified after reviewing their details.
+
+- **Relationships**:
+
+  - The User model will be linked to reservations via a **ForeignKey relationship**, allowing easy tracking of which users have reserved which trips.
+
+
 
 ## Milestones:
 
