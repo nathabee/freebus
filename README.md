@@ -3,6 +3,11 @@
 The aim of this project is to define, specify, and code the FreeBus project using limited human resources and expertise. The specification and development are done with prompt engineering, based on ChatGPT and Canvas.
 
 
+
+![Milestones Diagram](https://nathabee.de/freebus/freebusUserRole.png)  
+
+
+
 ## OBJECTIVE:
 
 The Citizen Bus project aims to address the mobility challenges faced by older individuals who may struggle to access essential services like bakeries, butchers, and supermarkets due to limited mobility or lack of transportation options. Our initiative offers a free bus service to anyone interested, regardless of age, with the option for passengers to make voluntary donations to support the service. To enhance accessibility and convenience, we are developing a mobile application that facilitates seat reservations for the Citizen Bus service.
