@@ -1,15 +1,14 @@
 # freebus
-
-## Description:
+ 
 The aim of this project is to define, specify, and code the FreeBus project using limited human resources and expertise. The specification and development are done with prompt engineering, based on ChatGPT and Canvas.
 
 
-## Objective:
+## OBJECTIVE:
 The Citizen Bus project aims to address the mobility challenges faced by older individuals who may struggle to access essential services like bakeries, butchers, and supermarkets due to limited mobility or lack of transportation options. Our initiative offers a free bus service to anyone interested, regardless of age, with the option for passengers to make voluntary donations to support the service. To enhance accessibility and convenience, we are developing a mobile application that facilitates seat reservations for the Citizen Bus service.
 
 The app will enable users to easily book seats on the Citizen Bus, providing a seamless and efficient way to secure transportation to their desired destinations. With intuitive features and a user-friendly interface, the app aims to empower individuals to independently arrange their travel plans, promoting autonomy and social inclusion among older citizens. By leveraging technology to support the Citizen Bus service, we strive to enhance mobility options for vulnerable populations and foster a sense of community support and connectivity.
 
-## Architecture Overview:
+## ARCHITECTURE:
 
  
 
@@ -24,7 +23,7 @@ The app will enable users to easily book seats on the Citizen Bus, providing a s
 ![Architecture Diagram](https://nathabee.de/chartDiagramFreeBus.png) 
 
  
-## Requirements:
+## REQUIREMENTS:
 
 - **User Interface (UI)**: The application will provide a clean, intuitive UI to allow users of all ages to easily navigate, make seat reservations, and view trip details.
 - **Accessibility**: Designed to comply with WCAG standards to ensure older individuals can comfortably use the app. Features include larger buttons, clear labels, voice compatibility, and high-contrast mode.
@@ -38,7 +37,7 @@ The app will enable users to easily book seats on the Citizen Bus, providing a s
 
   
 
-## User Interface Specification
+## USER INTERFACE Specification
 
 - **Menu Navigation**: The main menu will include options such as `Home`, `Reservation`, `Ticket History`, `User Dashboard`, and `Admin Tools`. The visibility of these options will be role-dependent.
 
@@ -84,62 +83,14 @@ The app will enable users to easily book seats on the Citizen Bus, providing a s
 - Only available slots are visible, showing the number of seats available.
 
 
+  
  
 
-### global layout of the application will consist of:
-
-  - **Header**: A navigation bar at the top of the page with the main menu options. The active menu item will be highlighted to provide a clear indication of the user's current page.
-
-  - **Main Window**: The center of the screen will display the primary content. By default, the **Home** page will be shown, but once the user is logged in, it will switch to the **Dashboard** view.
-
-  - **Footer**: A footer at the bottom of the page, which can include links to contact information, privacy policies, or other relevant details.
-
-
-
-### User Registration and Validation
-
-- Users register through a form with required details (name, email, address, disabilities).
-
-- Users are put into a pending state until validated by an admin.
-
-- **Admin Validation Process**: Admins can review, approve, request modifications, or create new users directly.
-
-
-
-### Reservation Creation
-
-- Users navigate to the **Reservation Page** to create reservations.
-
-- Available routes are shown, allowing users to select a date, time, and destination.
-
-- Users can modify or cancel reservations through their dashboard.
-
-### Calendar Availability
-
-- The **Calendar Page** displays routes in a calendar view.
-
-- Only available slots are visible, showing the number of seats available.
-
+## MODELE:
 
 
 ### User Model:
-The **User Model** will be implemented as a **custom user model** in Django to allow flexibility for storing additional user data beyond the standard fields. This will include:
-
-- **Fields**:
-  - `username`: The user's unique identifier.
-  - `email`: A required field for registration and communication.
-  - `password`: Stored securely using Django's built-in hashing mechanism.
-  - `first_name` and `last_name`: Personal information to address users.
-  - `age`: To prioritize users and analyze usage.
-  - `city_of_residence`: To ensure eligibility for service access (e.g., validation for specific cities).
-  - `is_verified`: Boolean flag for administrative approval, ensuring that the user resides within the supported regions.
-- **Custom Methods**:
-  - `verify_user()`: Allows admins to mark a user as verified after reviewing their details.
-- **Relationships**:
-  - The User model will be linked to reservations via a **ForeignKey relationship**, allowing easy tracking of which users have reserved which trips.
-
-
-### User Model
+ 
 
 The **User Model** will be implemented as a **custom user model** in Django to allow flexibility for storing additional user data beyond the standard fields. This will include:
 
