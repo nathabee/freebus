@@ -17,11 +17,11 @@
 
 ### global layout of the application will consist of:
 
-\*\*Header\*\*: A navigation bar at the top of the page with the main menu options. The active menu item will be highlighted to provide a clear indication of the user's current page.
+- Header: A navigation bar at the top of the page with the main menu options. The active menu item will be highlighted to provide a clear indication of the user's current page.
 
-\*\*Main Window\*\*: The center of the screen will display the primary content. By default, the \*\*Home\*\* page will be shown, but once the user is logged in, it will switch to the \*\*Dashboard\*\* view.
+- Main Window: The center of the screen will display the primary content. By default, the Home page will be shown, but once the user is logged in, it will switch to the Dashboard view.
 
-\*\*Footer\*\*: A footer at the bottom of the page, which can include links to contact information, privacy policies, or other relevant details.
+- Footer: A footer at the bottom of the page, which can include links to contact information, privacy policies, or other relevant details.
 
 
 ### User Registration and Validation
@@ -30,13 +30,13 @@
 
 - Users are put into a pending state until validated by an admin.
 
-- \*\*Admin Validation Process\*\*: Admins can review, approve, request modifications, or create new users directly.
+- Admin Validation Process: Admins can review, approve, request modifications, or create new users directly.
 
 
 
 ### Reservation Creation
 
-- Users navigate to the \*\*Reservation Page\*\* to create reservations.
+- Users navigate to the Reservation Page to create reservations.
 
 - Available routes are shown, allowing users to select a date, time, and destination.
 
@@ -44,7 +44,7 @@
 
 ### Calendar Availability
 
-- The \*\*Calendar Page\*\* displays routes in a calendar view.
+- The Calendar Page displays routes in a calendar view.
 
 - Only available slots are visible, showing the number of seats available.
 
