@@ -4,8 +4,7 @@ The aim of this project is to define, specify, and code the FreeBus project usin
 
 
 
-
-![Milestones Diagram](https://nathabee.de/freebus/UserRole.png) 
+![Milestones Diagram](https://nathabee.de/freebus/freebusUserRole.png)  
 
 
 
