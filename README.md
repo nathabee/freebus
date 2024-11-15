@@ -1,5 +1,8 @@
 # freebus
-test to create a fullstack app with canvas and chatgpt
+
+## Description:
+The aim of this project is to define, specify, and code the FreeBus project using limited human resources and expertise. The specification and development are done with prompt engineering, based on ChatGPT and Canvas.
+
 
 ## Objective:
 The Citizen Bus project aims to address the mobility challenges faced by older individuals who may struggle to access essential services like bakeries, butchers, and supermarkets due to limited mobility or lack of transportation options. Our initiative offers a free bus service to anyone interested, regardless of age, with the option for passengers to make voluntary donations to support the service. To enhance accessibility and convenience, we are developing a mobile application that facilitates seat reservations for the Citizen Bus service.
@@ -20,9 +23,6 @@ The app will enable users to easily book seats on the Citizen Bus, providing a s
 
 ![Architecture Diagram](https://nathabee.de/chartDiagramFreeBus.png) 
 
-
-This architecture ensures a clear separation of the frontend and backend responsibilities, promotes security by not exposing the backend directly, and utilizes modern technologies to provide a smooth user experience. 
-
  
 ## Functional Specifications:
 
@@ -35,7 +35,23 @@ This architecture ensures a clear separation of the frontend and backend respons
 - **Multi-Language Support**: The interface will be multilingual, supporting multiple languages to cater to diverse communities.
 - **Error Handling**: User-friendly error messages will guide users in case of invalid inputs or other issues, improving the overall user experience.
 
-## Model Specifications:
+
+### User Model:
+The **User Model** will be implemented as a **custom user model** in Django to allow flexibility for storing additional user data beyond the standard fields. This will include:
+
+- **Fields**:
+  - `username`: The user's unique identifier.
+  - `email`: A required field for registration and communication.
+  - `password`: Stored securely using Django's built-in hashing mechanism.
+  - `first_name` and `last_name`: Personal information to address users.
+  - `age`: To prioritize users and analyze usage.
+  - `city_of_residence`: To ensure eligibility for service access (e.g., validation for specific cities).
+  - `is_verified`: Boolean flag for administrative approval, ensuring that the user resides within the supported regions.
+- **Custom Methods**:
+  - `verify_user()`: Allows admins to mark a user as verified after reviewing their details.
+- **Relationships**:
+  - The User model will be linked to reservations via a **ForeignKey relationship**, allowing easy tracking of which users have reserved which trips.
+
 
 - **User Model**: Stores user data such as name, email, password (hashed), age, and city of residence. This data is used for user authentication, registration, and validation.
 - **Reservation Model**: Contains information about user reservations, including trip date, time, destination, and seat availability. It ensures that users can reserve seats and view reservation history.
@@ -44,7 +60,7 @@ This architecture ensures a clear separation of the frontend and backend respons
 
 ## Milestones:
 
-- **Team**: The development team consists of 1 developer with 80 days of Next.js experience, now proficient and no longer a beginner.
+- **Team**: The development team is led by a developer with strong foundational knowledge of Next.js, having recently completed an intensive 80-day development program.
 
 - **Project Start Date**: November 15, 2024
 
@@ -62,8 +78,39 @@ This architecture ensures a clear separation of the frontend and backend respons
 
 - **Ongoing Support & Updates**: Provide ongoing maintenance, add new features based on user feedback, and ensure the system remains up-to-date and secure. Starts: March 8, 2025
 
- 
+## Workflow Overview:
 
+### User Registration and Authentication:
+- **Authentication** ensures secure access to the booking system.
+- **Django JWT** is used for the authentication process.
+- **Roles** are assigned within the Django admin console. A user can have one of three roles: **supervisor**, **administrator**, or **booking privilege**.
+- Any user can **register for an account**, which initially puts them in a **pending mode** that does not grant booking privileges. The user must fill out a form during registration.
+- In Django, we use a **custom user model** to store user contact data, including address, telephone, age, disability flag, and disability description.
+- **Supervisors** validate user data. They can also modify user details or create new users.
 
+### Route Management:
+- The **Route Model** defines the list of different activities (e.g., trips to city X, supermarket, Christmas Market, etc.). Each route is linked to a maximum number of places on the bus.
+- There are also restrictions on the number of **rolators** or **wheelchairs** that can be transported per route.
 
+### Calendar Management:
+- The **Calendar Model** defines which routes are planned for which day.
+- Routes can be scheduled for **weekly** or **monthly** trips. Each calendar entry is linked to a specific route and contains information on the number of available seats.
+- The calendar is also linked to **booking entries**, allowing users to reserve seats for a specific route and date.
+
+### Booking Process:
+- Users access the **booking page** to select a route and a date from the calendar.
+- Users confirm their selection to finalize the booking.
+
+### Ticket Generation:
+- Upon successful booking, users receive a **digital ticket** with journey details and seat information.
+- Tickets can be viewed in the **ticket history** menu.
+
+### User Dashboard:
+- Users have access to a **dashboard** where they can manage bookings, view past trips, and update personal information.
+
+### Admin Management:
+- **Admins** oversee the entire system, managing bus routes, the calendar, seat availability, user accounts, and roles.
+
+### Supervision Management:
+- **Supervisors** oversee the booking system, verify booked routes, manage routes and calendar entries, and oversee user personal information.
 
