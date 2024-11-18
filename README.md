@@ -36,7 +36,7 @@ The Citizen Bus project aims to address the mobility challenges faced by older i
 - Voluntary donations support model.
 
 
-## 🛠️ Current Status
+## Current Status 🛠️ 
  
 
 - `Project started on time`: November 15, 2024
@@ -78,6 +78,8 @@ describe how this project was initially created before github repository existen
 ### [Github Pages](./documentation/GH_PAGES.md) 
 Explain how the github pages of this repository are made
 
+### [Worklogs](./documentation/WORKLOG.md) 
+This tracks the number of hours worked each day and provides a brief description of what was accomplished. It is useful to analyze the distribution of time across various activities in the project.
 
 
 ## Project Structure

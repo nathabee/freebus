@@ -32,6 +32,9 @@ To get started with contributing to FreeBUS, follow these steps:
 2. **Clone the Forked Repository**: Clone your fork to your local machine:
     ```bash
     git clone https://github.com/nathabee/freebus.git
+    cd freebus
+    ./setup-hooks.sh
+
     ```
 3. **Create a New Branch**: Always create a new branch to work on your changes:
     ```bash
