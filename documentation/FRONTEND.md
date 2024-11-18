@@ -2,7 +2,7 @@
 
 ## USER INTERFACE Specification
 
-![User Role Diagram](https://nathabee.de/freebus/freebusUserRole.png) 
+![User Role Diagram](https://github.com/nathabee/freebus/blob/main/documentation/png/freebusUserRole.png) 
 
 
 - **Menu Navigation**: The main menu will include options such as `Home`, `Reservation`, `Ticket History`, `User Dashboard`, and `Admin Tools`. The visibility of these options will be role-dependent.

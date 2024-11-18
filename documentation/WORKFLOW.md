@@ -5,7 +5,7 @@
 
 
 
-![Sequence workflow Diagram](https://nathabee.de/freebus/freebusSeqDiagReservation.png) 
+![Sequence workflow Diagram](https://github.com/nathabee/freebus/blob/main/documentation/png/freebusSeqDiagReservation.png) 
 
 - Sequence Diagram Structure
 - User initiates the reservation.

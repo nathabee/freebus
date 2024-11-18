@@ -31,7 +31,7 @@ To get started with contributing to FreeBUS, follow these steps:
 1. **Fork the Repository**: Click on the "Fork" button at the top of the repository to create a copy under your GitHub account.
 2. **Clone the Forked Repository**: Clone your fork to your local machine:
     ```bash
-    git clone https://github.com/YOUR_USERNAME/freebus.git
+    git clone https://github.com/nathabee/freebus.git
     ```
 3. **Create a New Branch**: Always create a new branch to work on your changes:
     ```bash
@@ -100,7 +100,7 @@ Once your changes are ready, submit a pull request:
 
 ## Reporting Bugs
 
-To report a bug, please [create an issue](https://github.com/YOUR_USERNAME/freebus/issues) using the **bug report template**. Be sure to include:
+To report a bug, please [create an issue](https://github.com/nathabee/freebus/issues) using the **bug report template**. Be sure to include:
 
 - A descriptive title.
 - Steps to reproduce the issue.

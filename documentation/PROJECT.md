@@ -16,7 +16,7 @@
 
 ## Milestones:
 
-![Milestones Diagram](https://nathabee.de/freebus/FreebusMilestones.png) 
+![Milestones Diagram](https://github.com/nathabee/freebus/blob/main/documentation/png/FreebusMilestones.png) 
 
 
 

@@ -12,4 +12,4 @@
 
  
  
-![Architecture Diagram](https://nathabee.de/freebus/chartDiagramFreeBus.png) 
+![Architecture Diagram](https://github.com/nathabee/freebus/blob/main/documentation/png/chartDiagramFreeBus.png) 

@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Landing Page</title>
+  <!-- Favicon -->
+  <link rel="icon" href="out/favicon.ico" type="image/x-icon">
+
+</head>
+
+<body>
+  <div class="container">
+    <!-- Project Information Section -->
+    <section class="project-info">
+      <h1>Welcome to the Competence App</h1>
+      <p>This is a demonstration version of the Competence App, allowing users to explore core functionalities in a
+        simulated environment.</p>
+    </section>
+
+    <!-- Demo Information Section -->
+    <section class="demo-info">
+      <h2>About the Demo</h2>
+      <p>This demo uses static data stored in JSON files and has no backend database connection. This allows you to
+        experience the interface and functionalities without real data.</p>
+    </section>
+
+    <section class="language-selection">
+      <h2>Choose a user</h2>
+      <p>Password is not checked in the demonstration. Each user is associated to a language:</p>
+
+      <!-- Radio buttons for language and user selection -->
+      <div>
+        <input type="radio" id="fr-jacques" name="user" value="fr&jacques">
+        <label for="fr-jacques">Français : Jacques</label>
+      </div>
+      <div>
+        <input type="radio" id="en-james" name="user" value="en&james" checked>
+        <label for="en-james">English : James</label>
+      </div>
+      <div>
+        <input type="radio" id="br-jakez" name="user" value="br&jakez">
+        <label for="br-jakez">Breton : Jakez</label>
+      </div>
+      <div>
+        <input type="radio" id="de-jakob" name="user" value="de&jakob">
+        <label for="de-jakob">Deutsch : Jakob</label>
+      </div>
+
+      <!-- Login message that will show after selection -->
+      <div id="login-message">
+        Please log in with the user selected. The password will not be checked in this demonstration.
+      </div>
+
+      <!-- Button to trigger the selection and redirection -->
+      <button onclick="redirectToLogin()">Go to Login</button>
+    </section>
+
+
+  <section class="documentation"></section>
+  <h2>Documentation</h2>
+  <p>Static files of the project are available hier :</p>
+    <button onclick="redirectToStaticfiles()">Check static documentation</button>
+
+  </section>
+
+
+    <script>
+      function redirectToLogin() {
+        // Get selected radio button
+        const selectedRadio = document.querySelector('input[name="user"]:checked');
+        if (selectedRadio) {
+          const label = document.querySelector(`label[for="${selectedRadio.id}"]`).innerText;
+
+          // Extract language code and user from label
+          const [lang, user] = selectedRadio.value.split('&');
+
+          // Log the selected language and user
+          console.log(`Selected User: ${user}, Language: ${lang}`);
+
+          // Redirect with the appropriate language and user in the query parameters
+          window.location.href = `out/login?lang=${lang}&user=${user}`;
+        } else {
+          alert("Please select a user to proceed.");
+        }
+      }
+
+      
+      function redirectToStaticfiles() { 
+          window.location.href = `staticfiles/html/`;
+ 
+      }
+    </script>
+
+    <style>
+      /* Basic styling for the landing page */
+      @import "staticfiles/rest_framework/css/bootstrap.min.css";
+
+      :root {
+        --custom-blue: #d4f0eb;
+        --custom-blue-complement: #deecbe;
+        --custom-warning: #fae46a;
+        --custom-dark: #22473f;
+        --custom-dark-shadow: rgba(0, 0, 0, 0.1);
+        --custom-light: #d1f3f1;
+        --custom-transparent: rgba(255, 255, 255, 0);
+        --custom-text: #343a40;
+        --custom-text-on-dark: white;
+        --custom-link-hover: #ff9100;
+        --custom-alert: #c4361d;
+        --custom-dropdown-bg: white;
+        --custom-dropdown-border: #9cee83;
+        --custom-gradient: linear-gradient(to right, var(--custom-blue-complement), var(--custom-blue));
+      }
+
+      body {
+        background: var(--custom-gradient);
+        font-family: Arial, sans-serif;
+        align-items: center;
+      }
+
+      .container {
+        overflow: auto;
+        margin: 10%;
+      }
+
+      #login-message {
+        color: var(--custom-alert);
+        font-weight: bold;
+        margin-top: 1em;
+        display: none;
+      }
+
+      .card {
+        background-color: var(--custom-blue);
+        box-shadow: 0 4px 8px var(--custom-dark-shadow);
+        border-radius: 10px;
+      }
+
+      .container-fluid {
+        width: 100%;
+        padding: 0;
+      }
+
+      .table-responsive {
+        overflow-x: auto;
+        margin-bottom: 15px;
+      }
+
+      .table th,
+      .table td {
+        white-space: nowrap;
+      }
+
+      .selected-row td {
+        background-color: var(--custom-blue) !important;
+      }
+
+      .project-info,
+      .demo-info,
+      .language-selection {
+        margin-bottom: 2em;
+      }
+
+      h1 {
+        font-size: 3em;
+        text-align: center;
+        margin-bottom: 1em;
+        color: var(--custom-dark);
+      }
+
+      p {
+        font-size: 1.2em;
+        margin-bottom: 1.5em;
+        line-height: 1.6;
+        color: var(--custom-text);
+      }
+
+      select,
+      button {
+        padding: 0.5em;
+        font-size: 1em;
+        margin-top: 1em;
+      }
+
+      .shadow-container {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 16px;
+        margin-bottom: 20px;
+        background-color: var(--custom-blue);
+        color: var(--custom-text);
+        transition: box-shadow 0.3s ease;
+      }
+
+      .shadow-container:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+    </style>
+
+</body>
+
+</html>
