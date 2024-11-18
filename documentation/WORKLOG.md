@@ -1,8 +1,16 @@
 # Project Work Log
 
+![⏱️](https://img.icons8.com/emoji/48/stopwatch-emoji.png) **Total Hours Worked**: _0 hours_ (Auto-generated)
+
+---
+
 This document tracks the number of hours worked each day and provides a brief description of what was accomplished. It is useful to analyze the distribution of time across various activities in the project.
 
 ---
+## Detailed Work Log
+
+
+## Week 0 (Dates: November 15, 2024)
 
 ### November 15, 2024
 - **Hours Worked**: 5 hours
@@ -29,7 +37,7 @@ This document tracks the number of hours worked each day and provides a brief de
 
 
 ### November 19, 2024
-- **Hours Worked**:  
+- **Hours Worked**:   0 hours
 - **Tasks**:
   - Installed and configured MariaDB, updated settings for database connection.
 - **Theme**: 
@@ -43,7 +51,7 @@ This document tracks the number of hours worked each day and provides a brief de
 ## Week 2 (Dates: November 25 - November 29, 2024)
 
 ###  November 25, 2024
-- **Hours Worked**:  hours
+- **Hours Worked**: 0 hours
 - **Tasks**:
   - 
 - **Theme**: 

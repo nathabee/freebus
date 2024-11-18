@@ -1,11 +1,10 @@
 #!/bin/sh
-if [ ! -f /documentation/WORKLOG.md ]; then
-  echo "Warning: WORKLOG.md file not found. Please make sure it is up-to-date."
-fi
+ 
 
-echo "Did you update WORKLOG.md for today? (yes/no)"
-read response
-if [ "$response" != "yes" ]; then
-  echo "Please update WORKLOG.md before committing."
+# Update the work log hours before committing
+./update-hours.sh
+
+if ! git diff --cached --name-only | grep -q 'documentation/WORKLOG.md'; then
+  echo "Please update documentation/WORKLOG.md before committing."
   exit 1
 fi
