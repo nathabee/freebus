@@ -81,6 +81,9 @@ Explain how the github pages of this repository are made
 ### [Worklogs](./documentation/WORKLOG.md) 
 This tracks the number of hours worked each day and provides a brief description of what was accomplished. It is useful to analyze the distribution of time across various activities in the project.
 
+### [Communication and notification](./documentation/COMMUNICATION.md) 
+describe how this project is handling communication and notification. Describe Email setup, particularly in terms of configuring SMTP server and managing mailboxes.  
+
 
 ## Project Structure
  
@@ -90,6 +93,7 @@ This tracks the number of hours worked each day and provides a brief description
 - `db_scripts/`: SQL scripts for initializing and seeding the database.
 - `static/`: Static files (CSS, JavaScript, images).
 - `tools/`: Utility scripts for managing the project.
+- `documentation/`: all documents linked to the project
 - `Jenkinsfile`: CI/CD script for automated deployment.
 
 

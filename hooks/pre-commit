@@ -1,10 +1,12 @@
 #!/bin/sh
  
 
-# Update the work log hours before committing
-./update-hours.sh
 
 if ! git diff --cached --name-only | grep -q 'documentation/WORKLOG.md'; then
   echo "Please update documentation/WORKLOG.md before committing."
   exit 1
 fi
+
+
+# Update the work log hours before committing at the end not to change the date as long as WORKLOG.md update is not done
+./update-hours.sh

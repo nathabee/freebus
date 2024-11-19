@@ -143,7 +143,7 @@ freebus/                   # Root directory
   ]
 
   CORS_ALLOWED_ORIGINS = [
-      'http://localhost:3000',  # Allow frontend requests
+      'http://localhost:3001',  # Allow frontend requests
   ]
   ```
 
@@ -161,7 +161,7 @@ freebus/                   # Root directory
   Create a `.env.local` file in the `frontend` folder for environment variables:
 
   ```
-  NEXT_PUBLIC_API_URL=http://localhost:8000/api/
+  NEXT_PUBLIC_API_URL=http://localhost:8081/api/
   ```
 
 ### Step 6: Running the Development Servers
@@ -173,20 +173,20 @@ Navigate to the `backend` directory and start the server:
 cd ../backend
 source env/bin/activate  # Activate the virtual environment
 python manage.py migrate  # Apply migrations
-python manage.py runserver  # Start Django server
+python manage.py runserver   8081 # Start Django server
 ```
 
-This will start the backend server at `http://localhost:8000`.
+This will start the backend server at `http://localhost:8081`.
 
 #### Frontend (Next.js)
 Open another terminal, navigate to the `frontend` directory, and start the frontend server:
 
 ```bash
 cd ../frontend
-npm run dev
+npm run dev -- -p 3001
 ```
 
-This will start the Next.js server at `http://localhost:3000`.
+This will start the Next.js server at `http://localhost:3001`.
 
  
  

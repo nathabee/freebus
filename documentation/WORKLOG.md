@@ -37,9 +37,25 @@ This document tracks the number of hours worked each day and provides a brief de
 
 
 ### November 19, 2024
-- **Hours Worked**:   0 hours
+- **Hours Worked**: 6 hours
 - **Tasks**:
+  - Verified workflow and identified key areas for improvement.
+  - Created a COMMUNICATION document detailing installation steps for a notification system using SNMP.
+  - Installed and configured SNMP on `nathabee.de`.
+- **Theme**:  Email system configuration
+- **Progress**: SNMP successfully configured and documented. Email delivery between Postfix and Dovecot still requires troubleshooting; LMTP connection issues remain unresolved.
+
+
+### November 20, 2024
+- **Hours Worked**:  0 hours
+- **Tasks**:
+ **on going not done :**
   - Installed and configured MariaDB, updated settings for database connection.
+  - Set up Django environment and created project (`django_settings`). 
+  - Defined basic models for the bus data.
+  - Started implementing views and serializers.
+  - Worked on the login and registration pages in Next.js.
+  - Set up JWT tokens for user authentication.
 - **Theme**: 
 
 ...

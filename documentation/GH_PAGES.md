@@ -1,4 +1,4 @@
-# GitHub Pages Deployment for Competence Project
+# GitHub Pages Deployment for FreeBUS Project
 
 ## Description
 

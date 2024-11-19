@@ -14,10 +14,18 @@ The **User Model** will be implemented as a **custom user model** in Django to a
   - `username`: The user's unique identifier.
   - `email`: A required field for registration and communication.
   - `password`: Stored securely using Django's built-in hashing mechanism.
-  - `first_name` and `last_name`: Personal information to address users.
+  - `firstname`  : Personal information to address users.
+  - `lastname`: Personal information to address users.
+  - `streetname`: Personal information to address users.
+  - `streetno`: Personal information to address users.
+  - `note1`: (optional) Personal information to address users.
+  - `note2`: (optional) Personal information to address users.
+  - `streetno`: Personal information to address users.
+  - `city`: To ensure eligibility for service access (e.g., validation for specific cities).
   - `age`: To prioritize users and analyze usage.
-  - `city_of_residence`: To ensure eligibility for service access (e.g., validation for specific cities).
-  - `is_verified`: Boolean flag for administrative approval, ensuring that the user resides within the supported regions.
+  - `status`: cycle : p (pending) => a (approved) => d (deactived).
+  - `disability`: disability description.
+  - `isdisabled`: disability flog.
 
 - **Custom Methods**:
 
@@ -26,6 +34,7 @@ The **User Model** will be implemented as a **custom user model** in Django to a
 - **Relationships**:
 
   - The User model will be linked to reservations via a **ForeignKey relationship**, allowing easy tracking of which users have reserved which trips.
+  - The User model will be linked to roles via a **ForeignKey relationship**
 
 ### Route Model
 
