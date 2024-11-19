@@ -10,3 +10,5 @@ fi
 
 # Update the work log hours before committing at the end not to change the date as long as WORKLOG.md update is not done
 ./update-hours.sh
+# Stage the updated WORKLOG.md to include the changes in the commit
+git add documentation/WORKLOG.md

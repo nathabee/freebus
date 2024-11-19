@@ -248,4 +248,4 @@ For inquiries or questions, reach out to:
 - Project in development
 
 
-![⏱️](https://img.icons8.com/emoji/48/stopwatch-emoji.png) **Total Hours Worked**: _8 hours_ (Auto-generated)
+![⏱️](https://img.icons8.com/emoji/48/stopwatch-emoji.png) **Total Hours Worked**: _14 hours_ (Auto-generated)
