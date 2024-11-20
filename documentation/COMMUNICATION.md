@@ -24,6 +24,11 @@
     - [Send Email to Common Providers example Gmail](#send-email-to-common-providers-example-gmail)
     - [Common Troubleshooting Tips](#common-troubleshooting-tips)
     - [Summary](#summary)
+  - [Debug Email ](#debug-email)
+    - [Configuration](#configuration)
+    - [Test Dovecot authentification](#test-dovecot-authentification)
+    - [Inspecting or Monitoring the LMTP Socket](#inspecting-or-monitoring-the-lmtp-socket)
+    - [Summary](#summary)
   - [Configure Django to Use Postfix](#configure-django-to-use-postfix)
     - [Configure Django to Use Postfix](#configure-django-to-use-postfix)
     - [Test Sending Emails](#test-sending-emails)
@@ -72,7 +77,7 @@ If you want multiple email addresses like `evaluation@nathabee.de`, `freebus@nat
 
 
 
-![Email Diagram](https://nathabee.de/freebus/blob/main/documentation/png/emailArchitecture.png)
+![Email Diagram](https://github.com/nathabee/freebus/tree/main/documentation/png/emailArchitecture.png)
 
  
 
@@ -104,17 +109,27 @@ You can use **Postfix** as your SMTP server to manage outgoing emails. Here's wh
    - You need to add virtual mailbox support in **Postfix**.
    - Edit `/etc/postfix/main.cf` and add:
      ```
-     virtual_alias_domains = nathabee.de
-     virtual_alias_maps = hash:/etc/postfix/virtual
+      # Virtual email to be defined after in /etc/postfix/virtual
+      virtual_alias_domains = nathabee.de
+      virtual_alias_maps = hash:/etc/postfix/virtual
+
+      # configure postfix to use dovecot LMTP
+      virtual_transport = lmtp:unix:private/dovecot-lmtp
+      virtual_mailbox_domains = nathabee.de
+      virtual_mailbox_maps = hash:/etc/postfix/virtual
+      virtual_mailbox_base = /var/mail/vhosts
+
      ```
    - Create or edit `/etc/postfix/virtual`:
      ```
-     evaluation@nathabee.de    evaluation_mailbox  ### not that to correct
-     freebus@nathabee.de       freebus_mailbox  ## not that to correct
+      evaluation@nathabee.de    nathabee.de/evaluation/
+      freebus@nathabee.de       nathabee.de/freebus/
+      admin@nathabee.de         nathabee@gmail.com
+
      ```
    - **Map mailboxes to folders**: After editing the virtual file, run:
      ```bash
-     postmap /etc/postfix/virtual
+     sudo postmap /etc/postfix/virtual
      ```
    - **Reload Postfix**:
      ```bash
@@ -569,7 +584,11 @@ This configuration file specifies the mail location for Dovecot.
 
    ```bash
    !include auth-passwdfile.conf.ext
+   #!include auth-system.conf.ext
+
+   
    ```
+   make a comment to remove use of system password : we do just want virtual user #/etc/dovecot/conf.d/auth-system.conf.ext 
 
 4. **Create a password file** at `/etc/dovecot/passwd`:
 
@@ -595,7 +614,34 @@ This configuration file specifies the mail location for Dovecot.
 
    **Note**: Replace `yourpassword1` and `yourpassword2` with secure passwords.
 
-5. **Configure the User Database** (`/etc/dovecot/conf.d/auth-static.conf.ext`):
+
+
+5. **Configure the User Password  access** (`sudo nano /etc/dovecot/conf.d/auth-passwdfile.conf.ext`):
+
+   Open the file:
+
+   ```bash
+   sudo nano sudo nano /etc/dovecot/conf.d/auth-passwdfile.conf.ext
+   ```
+
+   - Add the following configuration to specify where users' home directories and mail directories are located:
+
+     ```bash
+      passdb {
+      driver = passwd-file
+      args = /etc/dovecot/passwd
+      }
+
+      userdb {
+      driver = passwd-file
+      args = username_format=%u /etc/dovecot/passwd
+      }
+
+     ```
+
+
+
+6. ALTERNATIVE **Configure the User Database** **THIS IS NOT DONE BECAUSE WE STORE IN PLAIN FILE**  (`/etc/dovecot/conf.d/auth-static.conf.ext`):
 
    Open the file:
 
@@ -621,7 +667,7 @@ This configuration file specifies the mail location for Dovecot.
    - **`uid=vmail`** and **`gid=vmail`**: Ensures that Dovecot is running with appropriate permissions.
    - The **home directory** for each user is set to their respective folder within `/var/mail/vhosts`.
 
-6. **Verify LMTP Delivery with Dovecot**
+7. **Verify LMTP Delivery with Dovecot**
 Ensure Dovecot is correctly set up to accept LMTP delivery from Postfix. Check the Dovecot LMTP configuration:
 
 
@@ -646,11 +692,11 @@ Ensure Dovecot is correctly set up to accept LMTP delivery from Postfix. Check t
    ```
 
 
-7.  Create the `vmail` User and Group
+8.  Create the `vmail` User and Group
 
 You can create a user named `vmail` with the following commands:
 
-1. **Create the `vmail` Group**:
+8.1. **Create the `vmail` Group**:
 
    ```bash
    sudo groupadd -g 5000 vmail
@@ -659,7 +705,7 @@ You can create a user named `vmail` with the following commands:
    - **`-g 5000`**: This assigns a specific group ID (you can use any number that doesn’t conflict with existing group IDs).
    - **`vmail`**: The name of the group.
 
-2. **Create the `vmail` User**:
+8.2. **Create the `vmail` User**:
 
    ```bash
    sudo useradd -m -d /var/mail -u 5000 -g vmail -s /usr/sbin/nologin vmail
@@ -707,6 +753,9 @@ For **Postfix** to deliver emails to the correct virtual mailbox location, confi
    virtual_mailbox_maps = hash:/etc/postfix/virtual
    virtual_mailbox_base = /var/mail/vhosts
    ```
+
+virtual_transport tells Postfix how to deliver messages for virtual mailboxes (i.e., users that are not system users).
+lmtp:unix:private/dovecot-lmtp tells Postfix to use the LMTP (Local Mail Transfer Protocol) over a UNIX socket located at /var/spool/postfix/private/dovecot-lmtp.
 
 2. **Edit `/etc/postfix/master.cf`** to add Dovecot LMTP:
 
@@ -912,6 +961,115 @@ These steps should help you comprehensively test your Postfix setup, identify an
 
  --- 
 
+## Debug Email 
+
+### Configuration
+
+   - To get the dovecot active configuration:
+
+     ```bash
+      doveconf -n
+     ```
+
+      echo "This is a test email for freebus" | mail -s "Test Mailbox" freebus@nathabee.de
+
+
+### Test Dovecot authentification
+
+password are in /etc/dovecot/passwd
+     ```bash
+sudo doveadm auth test freebus@nathabee.de
+
+     ```
+
+
+### Inspecting or Monitoring the LMTP Socket
+
+**UNIX sockets** are essentially a way for different processes to communicate with each other on the same system, similar to network sockets but used internally. Inspecting or "hacking" the data being sent between Postfix and Dovecot over the LMTP socket is possible, but requires some specific techniques and tools.
+
+#### Postfix
+
+before postfix :
+
+postqueue -p
+
+#### Method to reset socket
+
+     ```bash
+     sudo systemctl stop postfix
+sudo systemctl stop dovecot
+
+sudo rm -f /var/spool/postfix/private/dovecot-lmtp
+
+sudo chown -R postfix:postfix /var/spool/postfix/private
+sudo chmod -R 755 /var/spool/postfix/private
+
+
+     ```
+
+#### Methods to Inspect the Socket
+
+1. **`strace`** to Trace Socket Activity
+
+   You can use `strace` to attach to the **Dovecot** or **Postfix** process and see system calls, which include read and write operations on the **LMTP socket**.
+
+   - To trace **Dovecot**:
+
+     ```bash
+     sudo strace -p $(pidof dovecot) -e trace=file,read,write
+     ```
+
+     - **`pidof dovecot`** gives the PID of the dovecot process.
+     - **`-e trace=file,read,write`** limits the trace to **file**, **read**, and **write** system calls, which are relevant to socket interactions.
+
+   - **Note**: This can generate a **lot** of output since it traces all activity. However, you will see the file descriptors related to the socket being accessed.
+
+2. **`socat`** to Monitor Socket Data
+
+   If you want to see the actual data being sent over the socket, you could use **`socat`**. This approach would involve redirecting the socket to another process that can show the data, or creating an intermediary listener. This is somewhat complex and can be risky to attempt on a production system because:
+
+   - You need to temporarily **stop Dovecot** from listening on the socket.
+   - You replace the socket with a **`socat`** listener to capture the traffic.
+
+   Example command to inspect data between Postfix and Dovecot:
+
+   ```bash
+   sudo systemctl stop dovecot
+   sudo socat -v UNIX-LISTEN:/var/spool/postfix/private/dovecot-lmtp,fork UNIX-CONNECT:/tmp/dovecot-lmtp-backup
+   ```
+
+   In this command:
+
+   - `socat` listens to the **dovecot-lmtp** socket.
+   - It forwards the communication to another socket, effectively **tapping** into the data flow.
+
+3. **Debugging with `netcat` or `nc`**
+
+   Since **UNIX sockets** and **network sockets** have similarities, you could also try using **netcat** (`nc`) to open a connection to the **LMTP** socket and inspect the response.
+
+   ```bash
+   sudo nc -U /var/spool/postfix/private/dovecot-lmtp
+   ```
+
+   This may allow you to manually initiate a connection and see the initial greeting from **Dovecot** (assuming you can properly format the LMTP commands).
+
+#### Important Considerations
+
+- **Be Careful in Production**: Inspecting sockets, attaching strace, or using tools like **`socat`** or **`nc`** can disrupt normal operation, especially on a production server. It’s always a good idea to test these kinds of procedures in a **non-critical environment**.
+  
+- **Permissions**: Make sure you have the correct permissions when accessing the socket. This is why the mode, user, and group are important in `/etc/dovecot/conf.d/10-master.conf`.
+
+### Summary
+
+1. **How Postfix Knows to Use LMTP Socket**:
+   - The **Postfix `main.cf`** file contains `virtual_transport = lmtp:unix:private/dovecot-lmtp` to instruct Postfix to use LMTP via the specified UNIX socket.
+
+2. **How Dovecot Knows to Listen**:
+   - **Dovecot** listens on the **LMTP socket** as specified in `/etc/dovecot/conf.d/10-master.conf`.
+
+3. **Inspecting the Socket**:
+   - You can use tools like **`strace`**, **`socat`**, or **`nc`** to examine data being sent through the socket.
+   - Be cautious, as manipulating or trying to "hack" into socket connections can disrupt services.
 
 
 ## Configure Django to Use Postfix
