@@ -2,28 +2,38 @@
 
 ![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)
 
+
 The aim of this project is to define, specify, and code the FreeBus project using limited human resources and expertise. The specification and development are done with prompt engineering, based on ChatGPT and Canvas.
 
+
+
+<!-- TOC -->
+- [FreeBUS](#freebus)
+  - [OBJECTIVE](#objective)
+  - [Features](#features)
+  - [Current Status  ](#current-status)
+  - [Documentation Overview ](#documentation-overview)
+    - [Screenshots](#screenshots)
+    - [[Project Presentation](./documentation/PROJECT.md) ](#project-presentationdocumentationprojectmd)
+    - [[Workflow](./documentation/WORKFLOW.md) ](#workflowdocumentationworkflowmd)
+    - [[Architecture Presentation](./documentation/ARCHITECTURE.md) ](#architecture-presentationdocumentationarchitecturemd)
+    - [[User Interface Specification](./documentation/FRONTEND.md) ](#user-interface-specificationdocumentationfrontendmd)
+    - [[Model](./documentation/MODELE.md) ](#modeldocumentationmodelemd)
+    - [[Workflow](./documentation/WORKFLOW.md) ](#workflowdocumentationworkflowmd)
+    - [[Initialisation](./documentation/INITIALISATION.md) ](#initialisationdocumentationinitialisationmd)
+    - [[Github Pages](./documentation/GH_PAGES.md) ](#github-pagesdocumentationghpagesmd)
+    - [[Worklogs](./documentation/WORKLOG.md) ](#worklogsdocumentationworklogmd)
+    - [[Communication and notification](./documentation/COMMUNICATION.md) ](#communication-and-notificationdocumentationcommunicationmd)
+  - [Project Structure](#project-structure)
+    - [folders](#folders)
+    - [Branches](#branches)
+  - [Installation](#installation)
+  - [Usage](#usage)
+<!-- TOC END -->
+
+
+
 ![Architecture Diagram](https://nathabee.de/freebus/chartDiagramFreeBus.png)
-
-
-
-## Table of Contents
-- [Objective](#objective)
-- [Features](#features)
-- [Current Status](#current-status)
-- [Documentation Overview and screenshot](#documentation-overview)
-- [Project Structure](#project-structure)
-- [Installation](#installation)
-- [Usage](#usage) 
-- [Contributing](#contributing)
-- [License](#license)
-- [Contact](#contact)
-- [Credits](#credits)
-- [Future Improvements](#future-improvements)
-- [known issues](#known-issues)
-
-
 
 
 ## OBJECTIVE
@@ -36,10 +46,11 @@ The Citizen Bus project aims to address the mobility challenges faced by older i
 - Voluntary donations support model.
 
 
-## Current Status 🛠️ 
+## Current Status  
  
 
 - `Project started on time`: November 15, 2024
+- status : 🛠️
 
 
 
@@ -161,7 +172,7 @@ npm start
 
 To run this project, you will need files to set the following environment variables:
 
-# in freebus/backend/.env 
+### in freebus/backend/.env 
 
 ```bash
 DJANGO_SECRET_KEY="to be defined"
@@ -182,7 +193,7 @@ JWT_SECRET_KEY="to be defined"
 ```
 
 
-# in freebus/frontend/.env.local 
+### in freebus/frontend/.env.local 
 ```bash
 NEXT_PUBLIC_ENV=developement
 NEXT_PUBLIC_API_URL=http://localhost:8081/api
@@ -192,7 +203,7 @@ NEXT_PUBLIC_MEDIA_URL=http://localhost:8081/media
 ```
 
 
-# in freebus/frontend/.env.demo 
+### in freebus/frontend/.env.demo 
 ```bash
 NEXT_PUBLIC_ENV=demo
 NEXT_PUBLIC_API_URL=/api
@@ -202,7 +213,7 @@ NEXT_PUBLIC_MEDIA_URL=/freebus/out/demo/data/
 ```
 
 
-# in freebus/frontend/.env.production 
+### in freebus/frontend/.env.production 
 ```bash
 NEXT_PUBLIC_ENV=production
 NEXT_PUBLIC_API_URL=https://nathabee.de/freebus/api/

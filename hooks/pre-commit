@@ -8,11 +8,6 @@ if ! git diff --cached --name-only | grep -q 'documentation/WORKLOG.md'; then
 fi
 
 
-# Update the work log hours before committing at the end not to change the date as long as WORKLOG.md update is not done
-./scripts/update-hours.sh
-# Stage the updated WORKLOG.md to include the changes in the commit
-git add documentation/WORKLOG.md
-
 # Functionality to check and update Table of Contents in all Markdown files in the documentation directory
 for file in $(git diff --cached --name-only | grep '^documentation/.*\.md$'); do
   if grep -q '<!-- TOC -->' "$file"; then
@@ -23,3 +18,20 @@ for file in $(git diff --cached --name-only | grep '^documentation/.*\.md$'); do
     git add "$file"
   fi
 done
+
+# Just change README table of content if README was changed (check before changing worked hours)
+for file in $(git diff --cached --name-only | grep 'README.md'); do
+  if grep -q '<!-- TOC -->' "$file"; then
+    echo "Updating Table of Contents for $file"
+    python3 scripts/create_tabcont.py "$file" 3
+
+    # Add the updated file back to the commit
+    git add "$file"
+  fi
+done
+
+
+# Update the work log hours before committing at the end not to change the date as long as WORKLOG.md update is not done
+./scripts/update-hours.sh
+# Stage the updated WORKLOG.md to include the changes in the commit
+git add documentation/WORKLOG.md

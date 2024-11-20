@@ -88,7 +88,7 @@ This document tracks the number of hours worked each day and provides a brief de
   - Defined basic models for the bus data.
   - Started implementing views and serializers.
   - Worked on the login and registration pages in Next.js.
-  - Set up JWT tokens for user authentication.
+  - Set up JWT tokens for user authentication. 
 ...
 
 ---
