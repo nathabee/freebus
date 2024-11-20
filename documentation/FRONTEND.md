@@ -1,6 +1,15 @@
 
-
 ## USER INTERFACE Specification
+
+<!-- TOC -->
+  - [USER INTERFACE Specification](#user-interface-specification)
+    - [global layout of the application will consist of:](#global-layout-of-the-application-will-consist-of)
+    - [User Registration and Validation](#user-registration-and-validation)
+    - [Reservation Creation](#reservation-creation)
+    - [Calendar Availability](#calendar-availability)
+<!-- TOC END -->
+
+
 
 ![User Role Diagram](https://github.com/nathabee/freebus/blob/main/documentation/png/freebusUserRole.png) 
 

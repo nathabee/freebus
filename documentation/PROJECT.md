@@ -1,4 +1,9 @@
 
+<!-- TOC -->
+  - [REQUIREMENTS:](#requirements)
+  - [Milestones:](#milestones)
+<!-- TOC END -->
+
 ## REQUIREMENTS:
 
 - **User Interface (UI)**: The application will provide a clean, intuitive UI to allow users of all ages to easily navigate, make seat reservations, and view trip details.

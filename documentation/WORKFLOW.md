@@ -1,6 +1,20 @@
 
 # Workflow Overview:
 
+<!-- TOC -->
+- [Workflow Overview:](#workflow-overview)
+  - [Workflow :](#workflow)
+    - [User Registration and Authentication:](#user-registration-and-authentication)
+    - [Route Management:](#route-management)
+    - [Calendar Management:](#calendar-management)
+    - [Booking Process:](#booking-process)
+    - [Ticket Generation:](#ticket-generation)
+    - [User Dashboard:](#user-dashboard)
+    - [Admin Management:](#admin-management)
+    - [Supervision Management:](#supervision-management)
+  - [sequence diagram :](#sequence-diagram)
+  - [NOT IMPLEMENTED Workflow (NOT on the skope YET)](#not-implemented-workflow-not-on-the-skope-yet)
+<!-- TOC END -->
 
 ## Workflow :
 

@@ -1,5 +1,17 @@
 # GitHub Pages Deployment for FreeBUS Project
 
+<!-- TOC -->
+- [GitHub Pages Deployment for FreeBUS Project](#github-pages-deployment-for-freebus-project)
+  - [Description](#description)
+  - [Branch Initialization](#branch-initialization)
+    - [Step-by-Step Setup](#stepbystep-setup)
+    - [Clone the Repository for `gh-pages` Branch](#clone-the-repository-for-ghpages-branch)
+    - [Switch to the gh-pages Branch in the New Directory](#switch-to-the-ghpages-branch-in-the-new-directory)
+  - [Updating the gh-pages Branch with New Code](#updating-the-ghpages-branch-with-new-code)
+    - [Modify and test the code](#modify-and-test-the-code)
+    - [Deploying on GitHub Pages](#deploying-on-github-pages)
+<!-- TOC END -->
+
 ## Description
 
 This setup enables deploying the `freebus` as a static site on GitHub Pages using a dedicated `gh-pages` branch.
@@ -18,7 +30,7 @@ Creating a separate clone of your repository dedicated to the `gh-pages` branch 
 
 ### Step-by-Step Setup
 
-### 1. **Clone the Repository for `gh-pages` Branch**  
+### Clone the Repository for `gh-pages` Branch
 First, create a new directory `freebus_ghpage` and clone the repository into it:
 ```bash
 cd <somewhere on you local machine>
@@ -26,7 +38,7 @@ git clone https://github.com/nathabee/freebus.git freebus_ghpage
 
 ```
 
-### 2 . Switch to the gh-pages Branch in the New Directory
+### Switch to the gh-pages Branch in the New Directory
 If the gh-pages branch does not exist yet, you can create it in this clone:
 
 ```bash 

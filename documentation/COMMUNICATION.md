@@ -1,6 +1,37 @@
 
 # Notifications and Communication
 
+<!-- TOC -->
+- [Notifications and Communication](#notifications-and-communication)
+  - [Installing Email on a Cloud ](#installing-email-on-a-cloud)
+    - [Summary of Actions that will be done](#summary-of-actions-that-will-be-done)
+    - [Requirements](#requirements)
+    - [Setting Up an SMTP Server Postfix](#setting-up-an-smtp-server-postfix)
+    - [Using Aliases for Forwarding](#using-aliases-for-forwarding)
+    - [DKIM](#dkim)
+    - [Authentication and Security](#authentication-and-security)
+    - [Receiving Emails in Mailboxes ](#receiving-emails-in-mailboxes)
+    - [Install Dovecot](#install-dovecot)
+    - [Configure Dovecot for Virtual Mailboxes](#configure-dovecot-for-virtual-mailboxes)
+    - [Configure Postfix to Deliver Emails to Dovecot](#configure-postfix-to-deliver-emails-to-dovecot)
+    - [Testing the Setup](#testing-the-setup)
+    - [Accessing the Mailboxes](#accessing-the-mailboxes)
+    - [Summary](#summary)
+  - [Test Email Configuration](#test-email-configuration)
+    - [Sending a Test Email from the Command Line](#sending-a-test-email-from-the-command-line)
+    - [Use Online Tools to Test SPF, DKIM, and DMARC](#use-online-tools-to-test-spf-dkim-and-dmarc)
+    - [Verify DNS Records Using MXToolbox](#verify-dns-records-using-mxtoolbox)
+    - [Check the Mail Log on Your Server](#check-the-mail-log-on-your-server)
+    - [Send Email to Common Providers example Gmail](#send-email-to-common-providers-example-gmail)
+    - [Common Troubleshooting Tips](#common-troubleshooting-tips)
+    - [Summary](#summary)
+  - [Configure Django to Use Postfix](#configure-django-to-use-postfix)
+    - [Configure Django to Use Postfix](#configure-django-to-use-postfix)
+    - [Test Sending Emails](#test-sending-emails)
+<!-- TOC END -->
+
+
+
 
 ## Installing Email on a Cloud 
 
@@ -31,7 +62,7 @@ If you want multiple email addresses like `evaluation@nathabee.de`, `freebus@nat
 
 
 
-### 1. Understanding the Requirements
+### Requirements
 
 To set up multiple email addresses that you can use to send and receive emails from different applications on your server (`evaluation`, `freebus`, `admin`), you need:
 
@@ -44,7 +75,7 @@ To set up multiple email addresses that you can use to send and receive emails f
 
 Here are the components that you need to configure in more detail:
 
-### 2. Setting Up an SMTP Server (e.g., Postfix)
+### Setting Up an SMTP Server Postfix
 
 You can use **Postfix** as your SMTP server to manage outgoing emails. Here's what you'll need to do:
 
@@ -96,7 +127,7 @@ You can use **Postfix** as your SMTP server to manage outgoing emails. Here's wh
 
 
 
-### 3. Using Aliases for Forwarding (Optional)
+### Using Aliases for Forwarding
 
 If you don't need individual mailboxes for each address and just want emails to be **forwarded** to a single address (like an admin’s email):
 
@@ -112,7 +143,7 @@ If you don't need individual mailboxes for each address and just want emails to 
 This way, you can receive all application-specific emails in a single admin mailbox.
 
 
-### 4. DKIM
+### DKIM
 
 Now that you've set up **Postfix**, the **DNS records (A, MX, SPF, DMARC)**, the next step is to configure **DKIM (DomainKeys Identified Mail)** using **OpenDKIM** to sign outgoing emails. This will add a layer of authenticity to your emails and help prevent them from being flagged as spam. Additionally, I'll explain how to create a **PTR record (Reverse DNS)** for your server's IP address, which is also crucial for good email deliverability.
 
@@ -122,7 +153,7 @@ Let's start with **OpenDKIM** for DKIM, followed by configuring the **PTR record
 
 **OpenDKIM** is an open-source implementation of DKIM that integrates well with **Postfix**. DKIM adds a digital signature to outgoing emails, which can be verified by the recipient's email server to ensure the authenticity of the email.
 
-#### Step-by-Step Guide to Setting Up OpenDKIM:
+#### Step-by-Step Guide to Setting Up OpenDKIM
 
 ##### Step 1: Install OpenDKIM
 First, install **OpenDKIM** and **OpenDKIM tools**:
@@ -278,7 +309,7 @@ sudo apt-get install opendkim opendkim-tools
 
 
  
-### 5. Authentication and Security
+### Authentication and Security
 
 To ensure the email setup is **secure**:
 
@@ -421,7 +452,7 @@ A **PTR Record** (Reverse DNS) maps your **IP address** back to a **hostname**, 
    - They will analyze your email headers and confirm if DKIM is correctly set up.
 
 
-### 3. Receiving Emails (Mailboxes)  
+### Receiving Emails in Mailboxes 
 
 
 #### Objective Configure MailBox with Dovecot
@@ -458,7 +489,7 @@ admin@nathabee.de         <nathabee>@gmail.com   <your extern email>
 
 
 
-### Step 1: Install Dovecot
+### Install Dovecot
 
 **Dovecot** will be used as the **IMAP/POP3** server to manage your local mailboxes. This will allow you to access your emails using a **webmail interface** or **email clients** like **Thunderbird**.
 
@@ -472,7 +503,7 @@ sudo apt-get install dovecot-imapd dovecot-pop3d
 - **dovecot-imapd**: Adds IMAP support so you can access mailboxes remotely (e.g., using Thunderbird).
 - **dovecot-pop3d**: Adds POP3 support if you want to download mail to your client and remove it from the server.
 
-### Step 2: Configure Dovecot for Virtual Mailboxes
+### Configure Dovecot for Virtual Mailboxes
 
 Dovecot needs to be configured to handle the **virtual users** and their mailboxes.
 
@@ -655,7 +686,7 @@ sudo chown -R vmail:vmail /var/mail/vhosts
 sudo chmod -R 770 /var/mail/vhosts
 ```
 
-### Step 3: Configure Postfix to Deliver Emails to Dovecot
+### Configure Postfix to Deliver Emails to Dovecot
 
 For **Postfix** to deliver emails to the correct virtual mailbox location, configure it to use **Dovecot LMTP** (Local Mail Transfer Protocol).
 
@@ -692,7 +723,7 @@ For **Postfix** to deliver emails to the correct virtual mailbox location, confi
    sudo systemctl reload postfix
    ```
 
-### Step 4: Testing the Setup
+### Testing the Setup
 
 1. **Send Test Emails**:
 
@@ -720,7 +751,7 @@ For **Postfix** to deliver emails to the correct virtual mailbox location, confi
    If the directories (cur, new, tmp) do not exist, create them manually with proper ownership and permissions.
    
 
-### Step 5: Accessing the Mailboxes
+### Accessing the Mailboxes
 
 #### Option A: Use IMAP/POP3 Client (e.g., Thunderbird)
 
@@ -764,7 +795,7 @@ This setup ensures that you have local mailboxes for `evaluation@nathabee.de` an
 
 After configuring **Postfix**, including all of the necessary **DNS records** (A, MX, SPF, DKIM, DMARC, and PTR), you can perform some testing to ensure that everything is working properly. Below, I'll outline different steps you can take to test both **sending and receiving** emails, as well as verify that all security measures like **SPF, DKIM, and DMARC** are working correctly.
 
-### Step 1: Sending a Test Email from the Command Line
+### Sending a Test Email from the Command Line
 
 To test **Postfix**, you can send an email from the command line using the `mail` utility.
 
@@ -787,7 +818,7 @@ echo "This is a test email from Postfix" | mail -s "Test Postfix Setup" freebus@
 
 **Check if you receive the email** in your inbox. Make sure to also check your **spam folder** to ensure it wasn’t flagged as spam. If it arrives in the spam folder, it may indicate a configuration issue or low trust for your server.
 
-### Step 2: Use Online Tools to Test SPF, DKIM, and DMARC
+### Use Online Tools to Test SPF, DKIM, and DMARC
 
 To ensure that **SPF, DKIM, and DMARC** are working correctly, you can use some of the following online services:
 
@@ -809,7 +840,7 @@ To ensure that **SPF, DKIM, and DMARC** are working correctly, you can use some 
      ```
    - DKIM Validator will give you a detailed analysis of the DKIM signature, SPF, and whether your email aligns with DMARC.
 
-### Step 3: Verify DNS Records Using MXToolbox
+### Verify DNS Records Using MXToolbox
 
 You can also use **MXToolbox** to verify that all of your DNS records are configured correctly. Go to [https://mxtoolbox.com](https://mxtoolbox.com) and do the following:
 
@@ -825,7 +856,7 @@ You can also use **MXToolbox** to verify that all of your DNS records are config
 4. **Check PTR Record**:
    - Use the **Reverse DNS Lookup** tool by entering your server's **public IP address**. It should return `mail.nathabee.de`.
 
-### Step 4: Check the Mail Log on Your Server
+### Check the Mail Log on Your Server
 
 You can also check the **mail log** to see if there are any errors or issues with the sending process. This log will give you detailed information about the Postfix operations:
 
@@ -836,7 +867,7 @@ tail -f /var/log/mail.log
 - You should see details about email delivery, including any errors if something goes wrong.
 - You will also see if emails are signed with **DKIM** properly and if they have been delivered to the next destination (e.g., Gmail, Yahoo, etc.).
 
-### Step 5: Send Email to Common Providers (Gmail, Yahoo, etc.)
+### Send Email to Common Providers example Gmail
 
 It is also a good idea to send test emails to a variety of popular email providers like:
 
@@ -852,7 +883,7 @@ echo "Testing email delivery with Postfix" | mail -s "Postfix Test" your-gmail-a
 
 Check if the email arrives, and **pay attention** to where it goes—if it lands in **Inbox** or **Spam**. If your emails end up in the spam folder, that could indicate that your domain or IP address still needs some time to build up a good reputation, or there might be minor adjustments needed to your **SPF**, **DKIM**, or **DMARC** configurations.
 
-### Step 6: Common Troubleshooting Tips
+### Common Troubleshooting Tips
 
 If you run into issues, consider the following:
 
@@ -865,7 +896,7 @@ If you run into issues, consider the following:
    - The **DKIM public key** is properly configured in your DNS.
    - Your **PTR record** resolves back to your domain (`mail.nathabee.de`).
 
-### Summary:
+### Summary
 
 - **Step 1**: Send a test email from the server to verify that Postfix is working.
 - **Step 2**: Use tools like **Mail-Tester** and **DKIM Validator** to verify **SPF, DKIM, and DMARC**.
@@ -884,7 +915,7 @@ These steps should help you comprehensively test your Postfix setup, identify an
 
 You already have a domain (`nathabee.de`) and hosting on a cloud server. This makes it possible to set up email communication without incurring additional recurring costs. After installing and  configure Postfix:
 
-### **Configure Django to Use Postfix**:
+### Configure Django to Use Postfix
    Update the `settings.py` file in your Django project to use Postfix for email sending:
 
    ```python
@@ -896,7 +927,7 @@ You already have a domain (`nathabee.de`) and hosting on a cloud server. This ma
    DEFAULT_FROM_EMAIL = 'freebus@nathabee.de'  # Replace with a valid email address
    ```
 
-### **Test Sending Emails**:
+### Test Sending Emails
    You can create a test view or use Django's built-in management commands to send an email:
 
    ```bash

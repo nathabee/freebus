@@ -1,11 +1,24 @@
 ## PROJECT INITIALISATION:
+ 
+
+<!-- TOC -->
+  - [PROJECT INITIALISATION:](#project-initialisation)
+    - [hier this is how i created the first time :](#hier-this-is-how-i-created-the-first-time)
+    - [Set Up the Root Directory](#set-up-the-root-directory)
+    - [Create the Backend Directory](#create-the-backend-directory)
+    - [Create the Frontend Directory](#create-the-frontend-directory)
+    - [Final Directory Structure](#final-directory-structure)
+    - [Additional Configuration](#additional-configuration)
+    - [Running the Development Servers](#running-the-development-servers)
+<!-- TOC END -->
+
 
 ### hier this is how i created the first time :
 Absolutely! I will guide you through the command sequence to create this project structure from scratch. This will cover setting up the Django backend and the Next.js frontend, creating the appropriate folders, and initializing everything in the desired structure.
 
 Here is how you can do it step by step:
 
-### Step 1: Set Up the Root Directory
+### Set Up the Root Directory
 First, create the root folder and navigate into it:
 
 ```bash
@@ -13,7 +26,7 @@ mkdir freebus
 cd freebus
 ```
 
-### Step 2: Create the Backend Directory
+### Create the Backend Directory
 Create a directory for the backend and navigate into it:
 
 ```bash
@@ -84,7 +97,7 @@ backend/
    pip freeze > requirements.txt
    ```
 
-### Step 3: Create the Frontend Directory
+### Create the Frontend Directory
 Go back to the root directory (`freebus`) and create the `frontend` directory:
 
 ```bash
@@ -102,7 +115,7 @@ npx create-next-app@latest .
 
 You'll be prompted to enter a project name, but since we're already inside the `frontend` folder, you can just proceed with the defaults. This command will create all the necessary files for a Next.js application in the `frontend` folder.
 
-### Step 4: Final Directory Structure
+### Final Directory Structure
 Now your directory should look like this:
 
 ```
@@ -120,7 +133,7 @@ freebus/                   # Root directory
     └── ...                # Other frontend-specific files
 ```
 
-### Step 5: Additional Configuration
+### Additional Configuration
 #### Backend
 - **CORS Headers**:
   Install `django-cors-headers` to allow the frontend to communicate with the backend:
@@ -164,7 +177,7 @@ freebus/                   # Root directory
   NEXT_PUBLIC_API_URL=http://localhost:8081/api/
   ```
 
-### Step 6: Running the Development Servers
+### Running the Development Servers
 
 #### Backend (Django)
 Navigate to the `backend` directory and start the server:

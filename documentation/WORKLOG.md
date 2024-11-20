@@ -1,6 +1,20 @@
 # Project Work Log
 
 ![⏱️](https://img.icons8.com/emoji/48/stopwatch-emoji.png) **Total Hours Worked**: _14 hours_ (Auto-generated)
+---
+<!-- TOC -->
+- [Project Work Log](#project-work-log)
+  - [Detailed Work Log](#detailed-work-log)
+  - [Week 0 (Dates: November 15, 2024)](#week-0-dates-november-15-2024)
+    - [November 15, 2024](#november-15-2024)
+  - [Week 1 (Dates: from November 18 to November 22, 2024)](#week-1-dates-from-november-18-to-november-22-2024)
+    - [November 18, 2024](#november-18-2024)
+    - [November 19, 2024](#november-19-2024)
+    - [November 20, 2024](#november-20-2024)
+  - [Week 2 (Dates: from November 25 to November 29, 2024)](#week-2-dates-from-november-25-to-november-29-2024)
+    - [November 25, 2024](#november-25-2024)
+  - [Tips for Using This Log](#tips-for-using-this-log)
+<!-- TOC END -->
 
 ---
 
@@ -23,7 +37,7 @@ This document tracks the number of hours worked each day and provides a brief de
 
 ---
 
-## Week 1 (Dates: November 18 - November 22, 2024)
+## Week 1 (Dates: from November 18 to November 22, 2024)
 
 ### November 18, 2024
 - **Hours Worked**: 3 hours
@@ -47,8 +61,27 @@ This document tracks the number of hours worked each day and provides a brief de
 
 
 ### November 20, 2024
-- **Hours Worked**:  0 hours
+- **Hours Worked**:  3 hours
+- **Tasks**: 
+  - automatic creation of table of content in markdown file by git commit
+  - email configuration in the cloud nathabee.de
+- **Theme**: Email system configuration
+
+...
+
+
+---
+
+
+## Week 2 (Dates: from November 25 to November 29, 2024)
+
+###  November 25, 2024
+- **Hours Worked**: 0 hours
 - **Tasks**:
+  - 
+- **Theme**: 
+- **Progress**:
+
  **on going not done :**
   - Installed and configured MariaDB, updated settings for database connection.
   - Set up Django environment and created project (`django_settings`). 
@@ -56,27 +89,11 @@ This document tracks the number of hours worked each day and provides a brief de
   - Started implementing views and serializers.
   - Worked on the login and registration pages in Next.js.
   - Set up JWT tokens for user authentication.
-- **Theme**: 
-
-...
-
-
----
-
-
-## Week 2 (Dates: November 25 - November 29, 2024)
-
-###  November 25, 2024
-- **Hours Worked**: 0 hours
-- **Tasks**:
-  - 
-- **Theme**: 
-
 ...
 
 ---
 
-### Tips for Using This Log
+## Tips for Using This Log
 1. **Add a Section for Each Week**: It's helpful to group logs into weeks to make it easy to find particular days and also get an overview of progress week by week.
 2. **Use Consistent Themes**: Try to use consistent labels for themes (e.g., "Frontend Setup", "API Integration", "Styling") to make it easier to analyze how much time was spent in different project areas.
 3. **Summarize Weekly Progress**: At the end of each week, consider adding a summary that helps understand how productive the week was, what blockers were encountered, and what’s planned next.
