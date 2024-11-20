@@ -3,9 +3,8 @@
 
 <!-- TOC -->
 - [Notifications and Communication](#notifications-and-communication)
-  - [Installing Email on a Cloud ](#installing-email-on-a-cloud)
-    - [Summary of Actions that will be done](#summary-of-actions-that-will-be-done)
-    - [Requirements](#requirements)
+  - [Installing an EMAILING system on a server](#installing-an-emailing-system-on-a-server)
+    - [REQUIREMENTS](#requirements)
     - [Setting Up an SMTP Server Postfix](#setting-up-an-smtp-server-postfix)
     - [Using Aliases for Forwarding](#using-aliases-for-forwarding)
     - [DKIM](#dkim)
@@ -33,13 +32,22 @@
 
 
 
-## Installing Email on a Cloud 
+## Installing an EMAILING system on a server
+
+### REQUIREMENTS
 
 **In the example bellow, we will install an emailing system for the domain nathabee.de**
 
-If you want multiple email addresses like `evaluation@nathabee.de`, `freebus@nathabee.de`, and `admin@nathabee.de` (will be forwarded to an external adresse) to support different applications hosted on your cloud, there are several implications for your setup, particularly in terms of configuring your **SMTP server** and managing **mailboxes**. Below, I will guide you on what changes you need to make to achieve this. 
+To set up multiple email addresses that you can use to send and receive emails, you need:
 
-### Summary of Actions that will be done
+1. **SMTP Server**: A way to **send** outgoing emails.
+2. **Mailboxes**: A way to **receive** emails, which usually involves managing mailboxes for each email address.
+3. **Email Aliases**: You might want aliases to forward emails, depending on how you manage multiple addresses.
+
+
+If you want multiple email addresses like `evaluation@nathabee.de`, `freebus@nathabee.de`, and `admin@nathabee.de` (the latest will be forwarded to an external adresse) to support different applications hosted on your cloud, there are several implications for your setup, particularly in terms of configuring your **SMTP server** and managing **mailboxes**. Below, I will guide you on what changes you need to make to achieve this. 
+
+**Summary of Actions that will be done :**
 
 1. **Installed and Configured Postfix and OpenDKIM**:
    - Configured **Postfix** to use OpenDKIM for signing outgoing emails. 
@@ -60,16 +68,11 @@ If you want multiple email addresses like `evaluation@nathabee.de`, `freebus@nat
 4. **Install Dovecot**:
    - Dovecot will be used as the IMAP/POP3 server to manage your local mailboxes
 
+ 
 
 
-### Requirements
 
-To set up multiple email addresses that you can use to send and receive emails from different applications on your server (`evaluation`, `freebus`, `admin`), you need:
-
-1. **SMTP Server**: A way to **send** outgoing emails.
-2. **Mailboxes**: A way to **receive** emails, which usually involves managing mailboxes for each email address.
-3. **Email Aliases**: You might want aliases to forward emails, depending on how you manage multiple addresses.
-
+![Email Diagram](https://nathabee.de/freebus/blob/main/documentation/png/emailArchitecture.png)
 
  
 
