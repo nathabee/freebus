@@ -97,6 +97,6 @@ This document tracks the number of hours worked each day and provides a brief de
 1. **Add a Section for Each Week**: It's helpful to group logs into weeks to make it easy to find particular days and also get an overview of progress week by week.
 2. **Use Consistent Themes**: Try to use consistent labels for themes (e.g., "Frontend Setup", "API Integration", "Styling") to make it easier to analyze how much time was spent in different project areas.
 3. **Summarize Weekly Progress**: At the end of each week, consider adding a summary that helps understand how productive the week was, what blockers were encountered, and what’s planned next.
-4. **Daily Reflection**: Adding a short note about challenges faced or lessons learned each day can provide even more insight when reviewing your work.
+4. **Daily Reflection**: Adding a short note about challenges faced or lessons learned each day can provide even more insight when reviewing your work.   
 
  

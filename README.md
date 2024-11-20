@@ -29,6 +29,18 @@ The aim of this project is to define, specify, and code the FreeBus project usin
     - [Branches](#branches)
   - [Installation](#installation)
   - [Usage](#usage)
+  - [Configuration](#configuration)
+    - [in freebus/backend/.env ](#in-freebusbackendenv)
+    - [in freebus/frontend/.env.local ](#in-freebusfrontendenvlocal)
+    - [in freebus/frontend/.env.demo ](#in-freebusfrontendenvdemo)
+    - [in freebus/frontend/.env.production ](#in-freebusfrontendenvproduction)
+  - [Usage](#usage)
+  - [Contributing](#contributing)
+  - [License](#license)
+  - [Contact](#contact)
+  - [Credits](#credits)
+  - [Future Improvements](#future-improvements)
+  - [Known Issues](#known-issues)
 <!-- TOC END -->
 
 
@@ -155,7 +167,6 @@ To get started with FreeBUS, follow these steps...
 - Include **examples** of how to run or use the application.
 - Provide some **basic commands** to start the application.
 
-```markdown
 
 
 To run the application:
@@ -260,3 +271,6 @@ For inquiries or questions, reach out to:
 
 
 ![⏱️](https://img.icons8.com/emoji/48/stopwatch-emoji.png) **Total Hours Worked**: _14 hours_ (Auto-generated)
+
+
+```markdown
