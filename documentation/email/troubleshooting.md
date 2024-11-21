@@ -1,12 +1,17 @@
-### Common Troubleshooting Tips
+# Common Troubleshooting Tips
 
 <!-- TOC -->
-    - [Common Troubleshooting Tips](#common-troubleshooting-tips)
-    - [Summary](#summary)
-  - [Debug Email ](#debug-email)
-    - [Configuration](#configuration)
-    - [Test Dovecot authentification](#test-dovecot-authentification)
-    - [Inspecting or Monitoring the LMTP Socket](#inspecting-or-monitoring-the-lmtp-socket)
+- [Common Troubleshooting Tips](#common-troubleshooting-tips)
+  - [Summary](#summary)
+- [Debug Email ](#debug-email)
+  - [Configuration](#configuration)
+  - [Test Dovecot authentification](#test-dovecot-authentification)
+  - [Inspecting or Monitoring the LMTP Socket](#inspecting-or-monitoring-the-lmtp-socket)
+  - [Postfix Troubleshouting](#postfix-troubleshouting)
+  - [Dovecot](#dovecot)
+  - [Steps to Troubleshoot the IMAP SSL Issue](#steps-to-troubleshoot-the-imap-ssl-issue)
+  - [LMTP socket](#lmtp-socket)
+  - [Important Considerations](#important-considerations)
 <!-- TOC END -->
 
 
@@ -21,7 +26,7 @@ If you run into issues, consider the following:
    - The **DKIM public key** is properly configured in your DNS.
    - Your **PTR record** resolves back to your domain (`mail.nathabee.de`).
 
-### Summary
+## Summary
 
 - **Step 1**: Send a test email from the server to verify that Postfix is working.
 - **Step 2**: Use tools like **Mail-Tester** and **DKIM Validator** to verify **SPF, DKIM, and DMARC**.
@@ -34,9 +39,9 @@ These steps should help you comprehensively test your Postfix setup, identify an
 
  --- 
 
-## Debug Email 
+# Debug Email 
 
-### Configuration
+## Configuration
 
    - To get the dovecot active configuration:
 
@@ -47,7 +52,7 @@ These steps should help you comprehensively test your Postfix setup, identify an
       echo "This is a test email for freebus" | mail -s "Test Mailbox" freebus@nathabee.de
 
 ---
-### Test Dovecot authentification
+## Test Dovecot authentification
 
 password are in /etc/dovecot/passwd
 ```bash
@@ -56,7 +61,7 @@ sudo doveadm auth test freebus@nathabee.de
  ```
 
 
-### Inspecting or Monitoring the LMTP Socket
+## Inspecting or Monitoring the LMTP Socket
 
 **UNIX sockets** are essentially a way for different processes to communicate with each other on the same system, similar to network sockets but used internally. Inspecting or "hacking" the data being sent between Postfix and Dovecot over the LMTP socket is possible, but requires some specific techniques and tools.
 
@@ -69,7 +74,7 @@ sudo ls /var/mail/vhosts/nathabee.de/freebus/new
  ```
 
 
-#### Postfix Troubleshouting
+## Postfix Troubleshouting
  
  
 
@@ -95,7 +100,7 @@ postqueue -p | awk '($1 ~ /^[A-F0-9]+$/) { print $1 }' | xargs -I {} sudo postsu
 ```
  
 
-#### Dovecot
+## Dovecot
 
 **start Dovecot and check the logs :**
 ```bash
@@ -128,7 +133,7 @@ openssl s_client -connect localhost:995 -crlf
 
 
 
-#### Steps to Troubleshoot the IMAP SSL Issue
+## Steps to Troubleshoot the IMAP SSL Issue
 
 1. **Check Dovecot SSL/TLS Configuration**:
    - Open the Dovecot configuration related to SSL/TLS, usually found in `/etc/dovecot/conf.d/10-ssl.conf`.
@@ -170,7 +175,7 @@ openssl s_client -connect localhost:995 -crlf
 
 
 
-#### LMTP socket
+## LMTP socket
 
 ```bash
 sudo systemctl stop postfix
@@ -226,7 +231,7 @@ sudo strace -p $(pidof dovecot) -e trace=file,read,write
 
    This may allow you to manually initiate a connection and see the initial greeting from **Dovecot** (assuming you can properly format the LMTP commands).
 
-#### Important Considerations
+## Important Considerations
 
 - **Be Careful in Production**: Inspecting sockets, attaching strace, or using tools like **`socat`** or **`nc`** can disrupt normal operation, especially on a production server. It’s always a good idea to test these kinds of procedures in a **non-critical environment**.
   

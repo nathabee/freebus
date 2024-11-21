@@ -1,10 +1,20 @@
-### Authentication and Security
+# Authentication and Security
 <!-- TOC -->
-    - [Authentication and Security](#authentication-and-security)
-    - [Other consideration](#other-consideration)
+- [Authentication and Security](#authentication-and-security)
+  - [Overview](#overview)
+  - [Step-by-Step DNS Configuration Using the YourCloudProvider Console](#stepbystep-dns-configuration-using-the-yourcloudprovider-console)
+    - [**Log in to Your YourCloudProvider Console**:](#log-in-to-your-yourcloudprovider-console)
+    - [**Add an MX Record (Mail Exchange Record)**:](#add-an-mx-record-mail-exchange-record)
+    - [**Add an A Record for Your Mail Server**:](#add-an-a-record-for-your-mail-server)
+    - [**Add an SPF Record (Sender Policy Framework)**:](#add-an-spf-record-sender-policy-framework)
+    - [**Add a DKIM Record (DomainKeys Identified Mail)**:](#add-a-dkim-record-domainkeys-identified-mail)
+    - [**Add a DMARC Record**:](#add-a-dmarc-record)
+    - [**Reverse DNS (rDNS/PTR Record)**:](#reverse-dns-rdnsptr-record)
+  - [Other consideration](#other-consideration)
 <!-- TOC END -->
 
 
+## Overview
 To ensure the email setup is **secure**:
 
 1. **TLS Encryption**:
@@ -24,13 +34,13 @@ To set up email addresses like `evaluation@nathabee.de`, `freebus@nathabee.de`, 
 
 Here's a breakdown of what exactly you should do within the YourCloudProvider console:
 
-#### Step-by-Step DNS Configuration Using the YourCloudProvider Console
+## Step-by-Step DNS Configuration Using the YourCloudProvider Console
 
-1. **Log in to Your YourCloudProvider Console**:
+### **Log in to Your YourCloudProvider Console**:
    - Log in to YourCloudProvider's cloud console at [console.YourCloudProvider.cloud](https://console.YourCloudProvider.cloud/).
    - Go to the **DNS** section where you manage your domain (`nathabee.de`).
 
-2. **Add an MX Record (Mail Exchange Record)**:
+### **Add an MX Record (Mail Exchange Record)**:
    - **Purpose**: The MX record is used to direct emails for your domain (`nathabee.de`) to your mail server.
    - **What to Do**:
      1. Add an **MX Record** to your domain settings in the YourCloudProvider console.
@@ -43,7 +53,7 @@ Here's a breakdown of what exactly you should do within the YourCloudProvider co
 
    - You can create multiple MX records if you have multiple mail servers for failover purposes.
 
-3. **Add an A Record for Your Mail Server**:
+### **Add an A Record for Your Mail Server**:
    - **Purpose**: Point `mail.nathabee.de` to the correct IP address of your server.
    - **What to Do**:
      1. Add an **A Record** that associates `mail.nathabee.de` with the IP address of your cloud instance.
@@ -53,7 +63,7 @@ Here's a breakdown of what exactly you should do within the YourCloudProvider co
         - **Value**: `<your-server-ip>` (IP address of your YourCloudProvider cloud instance)
    - This will make `mail.nathabee.de` resolve to your YourCloudProvider cloud server, which is crucial for routing email traffic.
 
-4. **Add an SPF Record (Sender Policy Framework)**:
+### **Add an SPF Record (Sender Policy Framework)**:
    - **Purpose**: SPF helps prevent spammers from sending unauthorized emails on behalf of your domain. This tells recipient servers which IP addresses are allowed to send emails on behalf of `nathabee.de`.
    - **What to Do**:
      1. Add a **TXT Record** to specify which servers are allowed to send mail.
@@ -64,7 +74,7 @@ Here's a breakdown of what exactly you should do within the YourCloudProvider co
         - Replace `<your-server-ip>` with the actual IP address of your YourCloudProvider cloud server.
         - The `-all` part indicates that only the listed IP address is allowed to send email, and all others should be rejected.
 
-5. **Add a DKIM Record (DomainKeys Identified Mail)**:
+### **Add a DKIM Record (DomainKeys Identified Mail)**:
    - **Purpose**: DKIM adds a digital signature to your outgoing emails, helping recipients verify that the email was sent by you and has not been altered.
    - **What to Do**:
      - After setting up DKIM on your mail server (e.g., with `opendkim`), you will get a **public key** that needs to be added to your DNS.
@@ -73,7 +83,7 @@ Here's a breakdown of what exactly you should do within the YourCloudProvider co
        - **Host**: `default._domainkey`
        - **Value**: `"v=DKIM1; k=rsa; p=<your-public-key-here>"` (replace `<your-public-key-here>` with the actual public key generated on your server)
 
-6. **Add a DMARC Record**:
+### **Add a DMARC Record**:
    - **Purpose**: DMARC tells email receivers what to do if an email fails SPF and/or DKIM checks, providing more information on the legitimacy of emails.
    - **What to Do**:
      1. Add a **TXT Record** for DMARC:
@@ -82,7 +92,7 @@ Here's a breakdown of what exactly you should do within the YourCloudProvider co
         - **Value**: `"v=DMARC1; p=none; rua=mailto:dmarc-reports@nathabee.de"`
         - The **`p=none`** setting means that failed messages will still be delivered but flagged. You can adjust this setting to `reject` or `quarantine` later, once you're confident in the setup.
  
-7. **Reverse DNS (rDNS/PTR Record)**:
+### **Reverse DNS (rDNS/PTR Record)**:
    - **Purpose**: Reverse DNS is important to prevent your outgoing emails from being marked as spam. It associates your server IP address with a hostname (`mail.nathabee.de`).
    - **What to Do**:
      - In the YourCloudProvider console, look for the **Reverse DNS** or **rDNS** section for your cloud server.
@@ -93,7 +103,7 @@ A **PTR Record** (Reverse DNS) maps your **IP address** back to a **hostname**, 
 
 
 
- **Step-by-Step Guide to Setting Up PTR (Reverse DNS):**
+#### **Step-by-Step Guide to Setting Up PTR (Reverse DNS):**
 
 7.1. **Log in to YourCloudProvider Console**:
 
@@ -115,7 +125,7 @@ A **PTR Record** (Reverse DNS) maps your **IP address** back to a **hostname**, 
    - Save or apply the changes.
 
 
-###  Other consideration
+##  Other consideration
  **SSL/TLS Certificates for Secure Email**:
    - **Purpose**: To secure email traffic, Postfix should be configured to use SSL/TLS certificates.
    - **What to Do**:

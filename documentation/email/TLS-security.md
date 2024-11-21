@@ -1,15 +1,21 @@
-## TLS security
+# TLS security
 
 <!-- TOC -->
-  - [TLS security](#tls-security)
-    - [Configuguration email client on the PC (Thunbird)](#configuguration-email-client-on-the-pc-thunbird)
-    - [Configuguration security on the server :](#configuguration-security-on-the-server)
+- [TLS security](#tls-security)
+  - [Configuration email client on the PC (Thunderbird)](#configuration-email-client-on-the-pc-thunderbird)
+    - [**Incoming Server (POP3) Configuration**:](#incoming-server-pop3-configuration)
+    - [**Outgoing Server (SMTP) Configuration**:](#outgoing-server-smtp-configuration)
+  - [Configuguration security on the server :](#configuguration-security-on-the-server)
+    - [**Open Necessary Ports**:](#open-necessary-ports)
+    - [**Configure SSL/TLS for Dovecot**:](#configure-ssltls-for-dovecot)
+    - [**Configure SSL/TLS for Postfix**:](#configure-ssltls-for-postfix)
+    - [**Restart Services**:](#restart-services)
 <!-- TOC END -->
 
 
-### Configuguration email client on the PC (Thunbird)
+## Configuration email client on the PC (Thunderbird)
 
-#### **Incoming Server (POP3) Configuration**:
+### **Incoming Server (POP3) Configuration**:
 - **Server Type**: POP3
 - **Server**: `nathabee.de`
 - **Port**: `995` (SSL/TLS)
@@ -17,15 +23,15 @@
 - **Authentication Method**: Normal Password
 - **Username**: `evaluation@nathabee.de` or `freebus@nathabee.de`
 
-#### **Outgoing Server (SMTP) Configuration**:
+### **Outgoing Server (SMTP) Configuration**:
 - **SMTP Server**: `nathabee.de`
 - **Port**: `587` (STARTTLS) or `465` (SSL/TLS)
 - **Connection Security**: STARTTLS or SSL/TLS
 - **Authentication Method**: Normal Password
 - **Username**: `evaluation@nathabee.de` or `freebus@nathabee.de`
 
-### Configuguration security on the server :
-####  **Open Necessary Ports**:
+## Configuguration security on the server :
+###  **Open Necessary Ports**:
 make sure that the necessary ports are open on your server's **firewall** settings. In you Cloudprovider Console, you need to configure the **firewall settings** to allow the following:
    - Make sure the following ports are open in firewall settings:
      - IMAP: `993` (SSL/TLS)
@@ -34,7 +40,7 @@ make sure that the necessary ports are open on your server's **firewall** settin
 
    These firewall settings will allow incoming connections for secure email access using Thunderbird or any other client.
 
-####  **Configure SSL/TLS for Dovecot**:
+###  **Configure SSL/TLS for Dovecot**:
     - In Dovecot, you need to enable **SSL/TLS** for secure connections on ports `993` (IMAP) and `995` (POP3).  
 
    - Edit `/etc/dovecot/conf.d/10-ssl.conf` to ensure SSL/TLS is enabled:
@@ -45,7 +51,7 @@ make sure that the necessary ports are open on your server's **firewall** settin
      ```
    - Make sure that the `ssl_cert` and `ssl_key` paths are valid and point to your SSL certificate and key.
      
-####  **Configure SSL/TLS for Postfix**:
+###  **Configure SSL/TLS for Postfix**:
     - Postfix should be configured to use **SSL/TLS** for encrypted outgoing mail.
    - Edit `/etc/postfix/main.cf` with the following settings:
      ```bash
@@ -61,7 +67,8 @@ make sure that the necessary ports are open on your server's **firewall** settin
  
    - If you’re using Let's Encrypt certificates, make sure you set the correct file paths.
 
-4. **Restart Services**:
+
+###  **Restart Services**:
    - After updating the configuration files, restart **Postfix** and **Dovecot** to apply the changes:
    ```bash
    sudo systemctl restart dovecot

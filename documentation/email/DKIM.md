@@ -1,19 +1,28 @@
-### DKIM
+# DKIM
 <!-- TOC -->
-    - [DKIM](#dkim)
+- [DKIM](#dkim)
+  - [Setting Up DKIM Using OpenDKIM](#setting-up-dkim-using-opendkim)
+  - [Step-by-Step Guide to Setting Up OpenDKIM](#stepbystep-guide-to-setting-up-opendkim)
+    - [Install OpenDKIM](#install-opendkim)
+    - [Configure OpenDKIM](#configure-opendkim)
+    - [Integrate OpenDKIM with Postfix](#integrate-opendkim-with-postfix)
+    - [Generate DKIM Keys](#generate-dkim-keys)
+    - [Add Public Key to DNS](#add-public-key-to-dns)
+    - [Configure Postfix to Use OpenDKIM](#configure-postfix-to-use-opendkim)
+    - [Restart Services](#restart-services)
 <!-- TOC END -->
 
 Now that you've set up **Postfix**, the **DNS records (A, MX, SPF, DMARC)**, the next step is to configure **DKIM (DomainKeys Identified Mail)** using **OpenDKIM** to sign outgoing emails. This will add a layer of authenticity to your emails and help prevent them from being flagged as spam. Additionally, I'll explain how to create a **PTR record (Reverse DNS)** for your server's IP address, which is also crucial for good email deliverability.
 
 Let's start with **OpenDKIM** for DKIM, followed by configuring the **PTR record**.
 
-#### Setting Up DKIM Using OpenDKIM
+## Setting Up DKIM Using OpenDKIM
 
 **OpenDKIM** is an open-source implementation of DKIM that integrates well with **Postfix**. DKIM adds a digital signature to outgoing emails, which can be verified by the recipient's email server to ensure the authenticity of the email.
 
-#### Step-by-Step Guide to Setting Up OpenDKIM
+## Step-by-Step Guide to Setting Up OpenDKIM
 
-#### Step 1: Install OpenDKIM
+### Install OpenDKIM
 First, install **OpenDKIM** and **OpenDKIM tools**:
 
 ```bash
@@ -21,7 +30,7 @@ sudo apt-get update
 sudo apt-get install opendkim opendkim-tools
 ```
 
-#### Step 2: Configure OpenDKIM
+### Configure OpenDKIM
 
 1. **Edit the OpenDKIM Configuration** (`/etc/opendkim.conf`):
 
@@ -56,7 +65,7 @@ sudo apt-get install opendkim opendkim-tools
    - **Selector**: `default` is used as the selector, which is a way to identify the DKIM key.
    - **Socket**: This tells **OpenDKIM** how to communicate with **Postfix**. It listens on port `12301` on localhost.
 
-#### Step 3: Integrate OpenDKIM with Postfix
+### Integrate OpenDKIM with Postfix
 
 1. **Create a Socket Directory** for OpenDKIM to communicate with Postfix:
 
@@ -78,7 +87,7 @@ sudo apt-get install opendkim opendkim-tools
    SOCKET="inet:12301@localhost"
    ```
 
-#### Step 4: Generate DKIM Keys
+### Generate DKIM Keys
 
 1. **Create the Key Directory**:
 
@@ -109,7 +118,7 @@ sudo apt-get install opendkim opendkim-tools
    sudo chmod 400 /etc/opendkim/keys/nathabee.de/default.private
    ```
 
-#### Step 5: Add Public Key to DNS
+### Add Public Key to DNS
 
 1. **View the Contents of the `default.txt` File**:
 
@@ -130,7 +139,7 @@ sudo apt-get install opendkim opendkim-tools
 
    This record needs to be added via the **YourCloudProvider DNS console** to associate your domain (`nathabee.de`) with this key.
 
-#### Step 6: Configure Postfix to Use OpenDKIM
+### Configure Postfix to Use OpenDKIM
 
 1. **Edit Postfix Configuration** (`/etc/postfix/main.cf`):
 
@@ -147,7 +156,7 @@ sudo apt-get install opendkim opendkim-tools
    non_smtpd_milters = inet:localhost:12301
    ```
 
-#### Step 7: Restart Services
+### Restart Services
 
 1. **Restart OpenDKIM and Postfix**:
 

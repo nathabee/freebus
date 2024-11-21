@@ -1,17 +1,21 @@
-### Setting Up an SMTP Server Postfix
+# Setting Up an SMTP Server Postfix
 <!-- TOC -->
-    - [Setting Up an SMTP Server Postfix](#setting-up-an-smtp-server-postfix)
+- [Setting Up an SMTP Server Postfix](#setting-up-an-smtp-server-postfix)
+  - [**Install Postfix**:](#install-postfix)
+  - [**Configure Postfix for Multiple Domains and Addresses**:](#configure-postfix-for-multiple-domains-and-addresses)
+  - [**Setting Up Virtual Mailboxes**:](#setting-up-virtual-mailboxes)
+  - [Using Aliases for Forwarding  (TO BE TESTED )](#using-aliases-for-forwarding--to-be-tested)
 <!-- TOC END -->
 
 You can use **Postfix** as your SMTP server to manage outgoing emails. Here's what you'll need to do:
 
-1. **Install Postfix**:
+## **Install Postfix**:
    ```bash
    sudo apt-get update
    sudo apt-get install postfix
    ```
    
-2. **Configure Postfix for Multiple Domains and Addresses**:
+## **Configure Postfix for Multiple Domains and Addresses**:
    - Postfix can be configured to send emails on behalf of multiple addresses (`evaluation@nathabee.de`, `freebus@nathabee.de`, etc.).
    - Edit `/etc/postfix/main.cf` to set up your domain:
      ```
@@ -37,7 +41,7 @@ sudo chmod 755 /var/spool/postfix/
 
 
  
-3. **Setting Up Virtual Mailboxes**:
+## **Setting Up Virtual Mailboxes**:
 
   - **Virtual Mailboxes**: If you want to have multiple email addresses, you should use **virtual mailboxes**. This allows you to manage many email addresses (`evaluation`, `freebus`, etc.) without creating system users for each email.
 
@@ -75,7 +79,7 @@ sudo postmap /etc/postfix/virtual_mailboxes
      ```
 
 
-#### Using Aliases for Forwarding  (TO BE TESTED )
+## Using Aliases for Forwarding  (TO BE TESTED )
 
 If you don't need individual mailboxes for each address and just want emails to be **forwarded** to a single address (like an admin’s email):
 

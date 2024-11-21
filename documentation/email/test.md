@@ -1,20 +1,22 @@
-## Test Email Configuration
+# Test Email Configuration
 
 <!-- TOC -->
-  - [Test Email Configuration](#test-email-configuration)
-    - [Testing the Setup](#testing-the-setup)
-    - [Sending a Test Email from the Command Line](#sending-a-test-email-from-the-command-line)
-    - [Use Online Tools to Test SPF, DKIM, and DMARC](#use-online-tools-to-test-spf-dkim-and-dmarc)
-    - [Verify DNS Records Using MXToolbox](#verify-dns-records-using-mxtoolbox)
-    - [Check the Mail Log on Your Server](#check-the-mail-log-on-your-server)
-    - [Send Email to Common Providers example Gmail](#send-email-to-common-providers-example-gmail)
+- [Test Email Configuration](#test-email-configuration)
+  - [Testing the Setup](#testing-the-setup)
+  - [Sending a Test Email from the Command Line](#sending-a-test-email-from-the-command-line)
+    - [Install `mailutils` if it's Not Installed](#install-mailutils-if-its-not-installed)
+    - [Send a Test Email](#send-a-test-email)
+  - [Use Online Tools to Test SPF, DKIM, and DMARC](#use-online-tools-to-test-spf-dkim-and-dmarc)
+  - [Verify DNS Records Using MXToolbox](#verify-dns-records-using-mxtoolbox)
+  - [Check the Mail Log on Your Server](#check-the-mail-log-on-your-server)
+  - [Send Email to Common Providers example Gmail](#send-email-to-common-providers-example-gmail)
 <!-- TOC END -->
 
 
 After configuring **Postfix**, including all of the necessary **DNS records** (A, MX, SPF, DKIM, DMARC, and PTR), you can perform some testing to ensure that everything is working properly. Below, I'll outline different steps you can take to test both **sending and receiving** emails, as well as verify that all security measures like **SPF, DKIM, and DMARC** are working correctly.
 
 
-### Testing the Setup
+## Testing the Setup
 
 1. **Send Test Emails**:
 
@@ -41,11 +43,11 @@ After configuring **Postfix**, including all of the necessary **DNS records** (A
    Emails should be stored in /var/mail/vhosts/nathabee.de/freebus/ and similar directories.
    If the directories (cur, new, tmp) do not exist, create them manually with proper ownership and permissions.
 
-### Sending a Test Email from the Command Line
+## Sending a Test Email from the Command Line
 
 To test **Postfix**, you can send an email from the command line using the `mail` utility.
 
-#### Install `mailutils` if it's Not Installed
+### Install `mailutils` if it's Not Installed
 If the `mail` utility isn't installed, you need to install it first:
 
 ```bash
@@ -53,7 +55,7 @@ sudo apt-get update
 sudo apt-get install mailutils
 ```
 
-#### Send a Test Email
+### Send a Test Email
 To send a test email:
 
 ```bash
@@ -64,7 +66,7 @@ echo "This is a test email from Postfix" | mail -s "Test Postfix Setup" freebus@
 
 **Check if you receive the email** in your inbox. Make sure to also check your **spam folder** to ensure it wasn’t flagged as spam. If it arrives in the spam folder, it may indicate a configuration issue or low trust for your server.
 
-### Use Online Tools to Test SPF, DKIM, and DMARC
+## Use Online Tools to Test SPF, DKIM, and DMARC
 
 To ensure that **SPF, DKIM, and DMARC** are working correctly, you can use some of the following online services:
 
@@ -86,7 +88,7 @@ To ensure that **SPF, DKIM, and DMARC** are working correctly, you can use some 
      ```
    - DKIM Validator will give you a detailed analysis of the DKIM signature, SPF, and whether your email aligns with DMARC.
 
-### Verify DNS Records Using MXToolbox
+## Verify DNS Records Using MXToolbox
 
 You can also use **MXToolbox** to verify that all of your DNS records are configured correctly. Go to [https://mxtoolbox.com](https://mxtoolbox.com) and do the following:
 
@@ -102,7 +104,7 @@ You can also use **MXToolbox** to verify that all of your DNS records are config
 4. **Check PTR Record**:
    - Use the **Reverse DNS Lookup** tool by entering your server's **public IP address**. It should return `mail.nathabee.de`.
 
-### Check the Mail Log on Your Server
+## Check the Mail Log on Your Server
 
 You can also check the **mail log** to see if there are any errors or issues with the sending process. This log will give you detailed information about the Postfix operations:
 
@@ -113,7 +115,7 @@ tail -f /var/log/mail.log
 - You should see details about email delivery, including any errors if something goes wrong.
 - You will also see if emails are signed with **DKIM** properly and if they have been delivered to the next destination (e.g., Gmail, Yahoo, etc.).
 
-### Send Email to Common Providers example Gmail
+## Send Email to Common Providers example Gmail
 
 It is also a good idea to send test emails to a variety of popular email providers like:
 

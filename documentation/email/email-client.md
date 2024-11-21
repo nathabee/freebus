@@ -1,17 +1,17 @@
-## Starting and Configuring Thunderbird on Ubuntu
+# Starting and Configuring Thunderbird on Ubuntu
 
 <!-- TOC -->
-  - [Starting and Configuring Thunderbird on Ubuntu](#starting-and-configuring-thunderbird-on-ubuntu)
-    - [Step 1: Install Thunderbird](#step-1-install-thunderbird)
-    - [Step 2: Configure Thunderbird](#step-2-configure-thunderbird)
-    - [Step 3: Accessing Emails](#step-3-accessing-emails)
-    - [Should Thunderbird Be Installed on the Server or Local PC?](#should-thunderbird-be-installed-on-the-server-or-local-pc)
+- [Starting and Configuring Thunderbird on Ubuntu](#starting-and-configuring-thunderbird-on-ubuntu)
+  - [Install Thunderbird](#install-thunderbird)
+  - [Configure Thunderbird](#configure-thunderbird)
+  - [Accessing Emails](#accessing-emails)
+  - [Should Thunderbird Be Installed on the Server or Local PC?](#should-thunderbird-be-installed-on-the-server-or-local-pc)
 <!-- TOC END -->
 
 
 Thunderbird is a popular and easy-to-use email client, and it's simple to set up on your local PC running Ubuntu. Here’s how you can do it:
 
-### Step 1: Install Thunderbird
+## Install Thunderbird
 Thunderbird is likely available in your system's default software repository. You can install it using the terminal:
 
 1. **Open a Terminal** and run the following command:
@@ -26,7 +26,7 @@ Thunderbird is likely available in your system's default software repository. Yo
      thunderbird &
      ```
 
-### Step 2: Configure Thunderbird
+## Configure Thunderbird
 Now that you have Thunderbird installed, you need to set it up to connect to your mail server.
 
 1. **Open Thunderbird**:
@@ -61,11 +61,11 @@ Now that you have Thunderbird installed, you need to set it up to connect to you
    - After manually configuring the settings, click **"Done"**.
    - Thunderbird will test the settings, and once it verifies them, your email account should be added successfully.
 
-### Step 3: Accessing Emails
+## Accessing Emails
 - **Access Mail**:
   - After setting up the account, Thunderbird will begin syncing emails. You should be able to see your inbox and any other folders from your mail server.
   
-### Should Thunderbird Be Installed on the Server or Local PC?
+## Should Thunderbird Be Installed on the Server or Local PC?
 - **Local PC**: 
   - Thunderbird is meant to be used on your **local computer** or **laptop**. This is the easiest and most efficient way to manage your emails.
 - **Not on the Server**:

@@ -1,17 +1,17 @@
 
 
-## Configure Django to Use Postfix
+# Configure Django to Use Postfix
 
 <!-- TOC -->
+- [Configure Django to Use Postfix](#configure-django-to-use-postfix)
   - [Configure Django to Use Postfix](#configure-django-to-use-postfix)
-    - [Configure Django to Use Postfix](#configure-django-to-use-postfix)
-    - [Test Sending Emails](#test-sending-emails)
+  - [Test Sending Emails](#test-sending-emails)
 <!-- TOC END -->
 
 
 You already have a domain (`nathabee.de`) and hosting on a cloud server. This makes it possible to set up email communication without incurring additional recurring costs. After installing and  configure Postfix:
 
-### Configure Django to Use Postfix
+## Configure Django to Use Postfix
    Update the `settings.py` file in your Django project to use Postfix for email sending:
 
    ```python
@@ -23,7 +23,7 @@ You already have a domain (`nathabee.de`) and hosting on a cloud server. This ma
    DEFAULT_FROM_EMAIL = 'freebus@nathabee.de'  # Replace with a valid email address
    ```
 
-### Test Sending Emails
+## Test Sending Emails
    You can create a test view or use Django's built-in management commands to send an email:
 
    ```bash

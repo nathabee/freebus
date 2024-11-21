@@ -1,8 +1,9 @@
-### REQUIREMENTS
+# REQUIREMENTS
 
 <!-- TOC -->
-    - [REQUIREMENTS](#requirements)
-    - [Overview of Protocol Roles](#overview-of-protocol-roles)
+- [REQUIREMENTS](#requirements)
+  - [configuration and installation overview](#configuration-and-installation-overview)
+  - [Overview of Protocol Roles](#overview-of-protocol-roles)
 <!-- TOC END -->
 
 
@@ -18,7 +19,7 @@ To set up multiple email addresses that you can use to send and receive emails, 
 If you want multiple email addresses like `evaluation@nathabee.de`, `freebus@nathabee.de`, and `admin@nathabee.de` (the latest will be forwarded to an external adresse) to support different applications hosted on your cloud, there are several implications for your setup, particularly in terms of configuring your **SMTP server** and managing **mailboxes**. Below, I will guide you on what changes you need to make to achieve this. 
 
 
-#### configuration and installation overview
+## configuration and installation overview
 
 **Summary of Actions that will be done :**
 
@@ -44,7 +45,7 @@ If you want multiple email addresses like `evaluation@nathabee.de`, `freebus@nat
  
 
 
-### Overview of Protocol Roles
+## Overview of Protocol Roles
 
 Let's clarify the relationship between **Postfix**, **Dovecot**, **IMAP**, **POP3**, and **LMTP**:
 

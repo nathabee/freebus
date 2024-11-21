@@ -1,9 +1,18 @@
-## Receiving Emails in Mailboxes 
+# Receiving Emails in Mailboxes 
+<!-- TOC -->
+- [Receiving Emails in Mailboxes ](#receiving-emails-in-mailboxes)
+  - [Objective Configure MailBox with Dovecot](#objective-configure-mailbox-with-dovecot)
+  - [Install Dovecot](#install-dovecot)
+    - [Configure Dovecot for Virtual Mailboxes](#configure-dovecot-for-virtual-mailboxes)
+    - [Configure Postfix to Deliver Emails to Dovecot](#configure-postfix-to-deliver-emails-to-dovecot)
+    - [Accessing the Mailboxes](#accessing-the-mailboxes)
+    - [Summary](#summary)
+<!-- TOC END -->
 
    - If you want to **store** received emails for each address, you need a tool like **Dovecot** or another **IMAP/POP3 server** to manage incoming mailboxes.
    - **Dovecot** can be used alongside Postfix to store received mail in virtual mailboxes, making it accessible through a webmail interface or any email client (Thunderbird, Outlook, etc.).
 
-#### Objective Configure MailBox with Dovecot
+## Objective Configure MailBox with Dovecot
 
 To **receive emails** and manage mailboxes, you need an **IMAP/POP3 server** like **Dovecot**:
 
@@ -37,7 +46,7 @@ admin@nathabee.de         <nathabee>@gmail.com   <your extern email>
 
 
 
-#### Install Dovecot
+## Install Dovecot
 
 **Dovecot** will be used as the **IMAP/POP3** server to manage your local mailboxes. This will allow you to access your emails using a **webmail interface** or **email clients** like **Thunderbird**.
 
@@ -51,11 +60,11 @@ sudo apt-get install dovecot-imapd dovecot-pop3d
 - **dovecot-imapd**: Adds IMAP support so you can access mailboxes remotely (e.g., using Thunderbird).
 - **dovecot-pop3d**: Adds POP3 support if you want to download mail to your client and remove it from the server.
 
-#### Configure Dovecot for Virtual Mailboxes
+### Configure Dovecot for Virtual Mailboxes
 
 Dovecot needs to be configured to handle the **virtual users** and their mailboxes.
 
-##### Step 2.1: Edit `/etc/dovecot/dovecot.conf`
+#### Step 2.1: Edit `/etc/dovecot/dovecot.conf`
 
 Open the Dovecot configuration file in a text editor:
 
@@ -72,7 +81,7 @@ Make sure you have the following settings:
 
 This line enables both **IMAP** and **POP3** so that users can choose how they wish to access their emails.
 
-##### Step 2.2: Edit `/etc/dovecot/conf.d/10-mail.conf`
+#### Step 2.2: Edit `/etc/dovecot/conf.d/10-mail.conf`
 
 This configuration file specifies the mail location for Dovecot.
 
@@ -94,7 +103,7 @@ This configuration file specifies the mail location for Dovecot.
 
    This setting tells Dovecot to store emails in the `/var/mail/vhosts` directory under folders named after the domain and the local part of the email address.
 
-##### Step 2.3: Configure Authentication for Virtual Users
+#### Step 2.3: Configure Authentication for Virtual Users
 
 1. **Edit `/etc/dovecot/conf.d/10-auth.conf`**:
 
@@ -233,7 +242,7 @@ You can create a user named `vmail` with the following commands:
 
 
 
-##### Step 2.4: Create the Mail Directory Structure
+#### Step 2.4: Create the Mail Directory Structure
 
 Create the directories for your virtual mailboxes:
 
@@ -249,7 +258,7 @@ sudo chown -R vmail:vmail /var/mail/vhosts
 sudo chmod -R 770 /var/mail/vhosts
 ```
 
-#### Configure Postfix to Deliver Emails to Dovecot
+### Configure Postfix to Deliver Emails to Dovecot
 
 For **Postfix** to deliver emails to the correct virtual mailbox location, configure it to use **Dovecot LMTP** (Local Mail Transfer Protocol).
 
@@ -289,9 +298,9 @@ lmtp:unix:private/dovecot-lmtp tells Postfix to use the LMTP (Local Mail Transfe
    sudo systemctl reload postfix
    ```
 
-#### Accessing the Mailboxes
+### Accessing the Mailboxes
 
-##### Option A: Use IMAP/POP3 Client (e.g., Thunderbird)
+#### Option A: Use IMAP/POP3 Client (e.g., Thunderbird)
 
 - **IMAP/POP3 Settings**:
   - **IMAP/POP3 Server**: `nathabee.de`
@@ -300,7 +309,7 @@ lmtp:unix:private/dovecot-lmtp tells Postfix to use the LMTP (Local Mail Transfe
   - **IMAP Port**: `143` (unencrypted) or `993` (SSL/TLS)
   - **POP3 Port**: `110` (unencrypted) or `995` (SSL/TLS)
 
-##### Option B: Set Up Webmail Using Roundcube
+#### Option B: Set Up Webmail Using Roundcube
 
 If you want a **web interface** for accessing emails:
 
@@ -317,7 +326,7 @@ If you want a **web interface** for accessing emails:
 3. **Access Webmail**:
    - You can access **Roundcube** by visiting `http://your-server-ip/roundcube`.
 
-#### Summary
+### Summary
 
 1. **Install Dovecot** to handle IMAP and POP3 services.
 2. **Configure Dovecot** to manage virtual mailboxes by editing `10-mail.conf` and `10-auth.conf` to handle virtual users.
