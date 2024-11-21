@@ -1,4 +1,7 @@
 ### Setting Up an SMTP Server Postfix
+<!-- TOC -->
+    - [Setting Up an SMTP Server Postfix](#setting-up-an-smtp-server-postfix)
+<!-- TOC END -->
 
 You can use **Postfix** as your SMTP server to manage outgoing emails. Here's what you'll need to do:
 

@@ -80,7 +80,7 @@ This document tracks the number of hours worked each day and provides a brief de
   - Troubleshooting completed: Resolved virtual mailbox, Unix socket issues, and LMTP connection problems.
   - Successfully configured Dovecot password authentication.
 - **Pending Tasks**:
-  - Configure email client access (Thunderbird, etc.).
+  - Configure email client access (Thunderbird).
   - Set up TLS security for server-side communications.
   - Test DKIM configuration for email authentication.
   - Create an overview document to explain the email system.

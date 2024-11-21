@@ -1,4 +1,7 @@
 ###  LMTP
+<!-- TOC -->
+    - [LMTP](#lmtp)
+<!-- TOC END -->
 
 **LMTP (Local Mail Transfer Protocol)** is used in our project for **delivering emails from Postfix to Dovecot**. Specifically, when an email arrives at our server, **Postfix** receives it first. Instead of Postfix storing the email directly, it uses **LMTP** to hand over the email to **Dovecot**, which then stores it in the appropriate mailbox directory.
 
