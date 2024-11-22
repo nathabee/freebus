@@ -106,7 +106,7 @@ This document tracks the number of hours worked each day and provides a brief de
   - Continue learning more about email server management.
   - Configure email client access, such as using **Thunderbird** for testing.
   - Finalize the TLS security setup and test for complete stability.
-  - Test **DKIM** configuration to ensure proper email authentication.
+  - Test **DKIM** configuration to ensure proper email authentication. 
   - Create an overview document to explain the email system to other team members.
   - Integrate the email system with the **Django** application for seamless functionality.
 

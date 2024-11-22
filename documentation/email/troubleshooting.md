@@ -226,7 +226,7 @@ sudo strace -p $(pidof dovecot) -e trace=file,read,write
    Since **UNIX sockets** and **network sockets** have similarities, you could also try using **netcat** (`nc`) to open a connection to the **LMTP** socket and inspect the response.
 
    ```bash
-   sudo nc -U /var/spool/postfix/private/dovecot-lmtp
+   sudo netstat -U /var/spool/postfix/private/dovecot-lmtp
    ```
 
    This may allow you to manually initiate a connection and see the initial greeting from **Dovecot** (assuming you can properly format the LMTP commands).
