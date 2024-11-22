@@ -1,6 +1,6 @@
 # Project Work Log
 
-![⏱️](https://img.icons8.com/emoji/48/stopwatch-emoji.png) **Total Hours Worked**: _24 hours_ (Auto-generated)
+![⏱️](https://img.icons8.com/emoji/48/stopwatch-emoji.png) **Total Hours Worked**: _29 hours_ (Auto-generated)
 ---
 <!-- TOC -->
 - [Project Work Log](#project-work-log)
@@ -12,6 +12,7 @@
     - [November 19, 2024](#november-19-2024)
     - [November 20, 2024](#november-20-2024)
     - [November 21, 2024](#november-21-2024)
+    - [November 22, 2024](#november-22-2024)
   - [Week 2 (Dates: from November 25 to November 29, 2024)](#week-2-dates-from-november-25-to-november-29-2024)
     - [November 25, 2024](#november-25-2024)
   - [Tips for Using This Log](#tips-for-using-this-log)
@@ -85,6 +86,30 @@ This document tracks the number of hours worked each day and provides a brief de
   - Test DKIM configuration for email authentication.
   - Create an overview document to explain the email system.
   - Integrate the email system with Django.
+
+
+### November 22, 2024
+
+- **Hours Worked**: 5 hours
+
+- **Tasks**:
+  - Documented email server configuration details.
+  - Set up email services on `nathabee.de` in the cloud.
+
+- **Theme**: Email System Configuration
+
+- **Progress**:
+  - Configured TLS security for server-side communications, addressing encryption requirements for both incoming and outgoing emails.
+  - Troubleshooted Unix socket issues, specifically around the `dovecot-lmtp` connection, ensuring correct permissions and successful communication between **Postfix** and **Dovecot**.
+
+- **Pending Tasks**:
+  - Continue learning more about email server management.
+  - Configure email client access, such as using **Thunderbird** for testing.
+  - Finalize the TLS security setup and test for complete stability.
+  - Test **DKIM** configuration to ensure proper email authentication.
+  - Create an overview document to explain the email system to other team members.
+  - Integrate the email system with the **Django** application for seamless functionality.
+
 
 
 ...

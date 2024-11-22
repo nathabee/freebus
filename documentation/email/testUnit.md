@@ -1,47 +1,52 @@
-# Test Email Configuration
+**Test Email Configuration**
 
 <!-- TOC -->
-- [Test Email Configuration](#test-email-configuration)
   - [Testing the Setup](#testing-the-setup)
+    - [0. **Use OpenSSL to Test the Connection**](#0-use-openssl-to-test-the-connection)
+    - [1. **Send Test Emails**](#1-send-test-emails)
+    - [2. **Check the Mailboxes**](#2-check-the-mailboxes)
   - [Sending a Test Email from the Command Line](#sending-a-test-email-from-the-command-line)
     - [Install `mailutils` if it's Not Installed](#install-mailutils-if-its-not-installed)
     - [Send a Test Email](#send-a-test-email)
   - [Use Online Tools to Test SPF, DKIM, and DMARC](#use-online-tools-to-test-spf-dkim-and-dmarc)
   - [Verify DNS Records Using MXToolbox](#verify-dns-records-using-mxtoolbox)
   - [Check the Mail Log on Your Server](#check-the-mail-log-on-your-server)
-  - [Send Email to Common Providers example Gmail](#send-email-to-common-providers-example-gmail)
+  - [Send Email to Common Providers Example Gmail](#send-email-to-common-providers-example-gmail)
+    - [Tips for Improving Deliverability](#tips-for-improving-deliverability)
 <!-- TOC END -->
-
 
 After configuring **Postfix**, including all of the necessary **DNS records** (A, MX, SPF, DKIM, DMARC, and PTR), you can perform some testing to ensure that everything is working properly. Below, I'll outline different steps you can take to test both **sending and receiving** emails, as well as verify that all security measures like **SPF, DKIM, and DMARC** are working correctly.
 
-
 ## Testing the Setup
 
-1. **Send Test Emails**:
-
-   - Send a test email to `evaluation@nathabee.de` and `freebus@nathabee.de`:
-     ```bash
-     echo "This is a test email for evaluation" | mail -s "Test Mailbox" evaluation@nathabee.de
-     echo "This is a test email for freebus" | mail -s "Test Mailbox" freebus@nathabee.de
-     ```
-
-2. **Check the Mailboxes**:
-
-   Navigate to the mailbox directories to check for incoming mail:
-
+### 0. **Use OpenSSL to Test the Connection**
+You can also use **openssl** to verify the secure connection to your mail server:
    ```bash
-   ls /var/mail/vhosts/nathabee.de/evaluation/new
-   ls /var/mail/vhosts/nathabee.de/freebus/new
-
-
+   openssl s_client -connect mail.nathabee.de:587 -starttls smtp
    ```
+   This will check if the SMTP server supports **STARTTLS** and that the certificate is served correctly.
 
-   You should see files inside the `new/` directories for each mailbox, which represent the new email messages.
+### 1. **Send Test Emails**
 
-   Check Email Storage:
-   Emails should be stored in /var/mail/vhosts/nathabee.de/freebus/ and similar directories.
-   If the directories (cur, new, tmp) do not exist, create them manually with proper ownership and permissions.
+- Send a test email to `evaluation@nathabee.de` and `freebus@nathabee.de`:
+  ```bash
+  echo "This is a test email for evaluation" | mail -s "Test Mailbox" evaluation@nathabee.de
+  echo "This is a test email for freebus" | mail -s "Test Mailbox" freebus@nathabee.de
+  ```
+
+### 2. **Check the Mailboxes**
+
+Navigate to the mailbox directories to check for incoming mail:
+
+```bash
+ls /var/mail/vhosts/nathabee.de/evaluation/new
+ls /var/mail/vhosts/nathabee.de/freebus/new
+```
+You should see files inside the `new/` directories for each mailbox, which represent the new email messages.
+
+- **Check Email Storage**:
+  Emails should be stored in `/var/mail/vhosts/nathabee.de/freebus/` and similar directories.
+  If the directories (`cur`, `new`, `tmp`) do not exist, create them manually with proper ownership and permissions.
 
 ## Sending a Test Email from the Command Line
 
@@ -61,7 +66,6 @@ To send a test email:
 ```bash
 echo "This is a test email from Postfix" | mail -s "Test Postfix Setup" freebus@nathabee.com
 ``` 
-
 - **`-s`**: This specifies the subject line for your email.
 
 **Check if you receive the email** in your inbox. Make sure to also check your **spam folder** to ensure it wasn’t flagged as spam. If it arrives in the spam folder, it may indicate a configuration issue or low trust for your server.
@@ -115,7 +119,7 @@ tail -f /var/log/mail.log
 - You should see details about email delivery, including any errors if something goes wrong.
 - You will also see if emails are signed with **DKIM** properly and if they have been delivered to the next destination (e.g., Gmail, Yahoo, etc.).
 
-## Send Email to Common Providers example Gmail
+## Send Email to Common Providers Example Gmail
 
 It is also a good idea to send test emails to a variety of popular email providers like:
 
@@ -129,4 +133,12 @@ Use the following command to send an email:
 echo "Testing email delivery with Postfix" | mail -s "Postfix Test" your-gmail-address@gmail.com
 ```
 
-Check if the email arrives, and **pay attention** to where it goes—if it lands in **Inbox** or **Spam**. If your emails end up in the spam folder, that could indicate that your domain or IP address still needs some time to build up a good reputation, or there might be minor adjustments needed to your **SPF**, **DKIM**, or **DMARC** configurations.
+- **Check if the email arrives**: Pay attention to where it goes—**Inbox** or **Spam**. If your emails end up in the spam folder, it could indicate that your domain or IP address still needs some time to build up a good reputation, or there might be minor adjustments needed to your **SPF**, **DKIM**, or **DMARC** configurations.
+
+### Tips for Improving Deliverability
+- **Double-Check DNS Records**: Ensure **SPF**, **DKIM**, and **DMARC** are correctly set up and free of errors.
+- **Check Email Reputation**: Use tools like [SenderScore](https://www.senderscore.org) to verify your IP reputation.
+- **Add a PTR Record**: Ensure that you have a **reverse DNS (PTR)** record pointing back to your mail server’s hostname.
+- **Monitor Spam Complaints**: Be mindful of **spam complaints**. If you notice increased complaints, consider revising your email content or recipients.
+
+
