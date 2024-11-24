@@ -4,6 +4,7 @@
   - [Overview](#overview)
   - [Step-by-Step DNS Configuration Using the YourCloudProvider Console](#stepbystep-dns-configuration-using-the-yourcloudprovider-console)
     - [**Log in to Your YourCloudProvider Console**:](#log-in-to-your-yourcloudprovider-console)
+    - [info : Fully qualified domain :](#info--fully-qualified-domain)
     - [**Add an MX Record (Mail Exchange Record)**:](#add-an-mx-record-mail-exchange-record)
     - [**Add an A Record for Your Mail Server**:](#add-an-a-record-for-your-mail-server)
     - [**Add an SPF Record (Sender Policy Framework)**:](#add-an-spf-record-sender-policy-framework)
@@ -40,6 +41,14 @@ Here's a breakdown of what exactly you should do within the YourCloudProvider co
    - Log in to YourCloudProvider's cloud console at [console.YourCloudProvider.cloud](https://console.YourCloudProvider.cloud/).
    - Go to the **DNS** section where you manage your domain (`nathabee.de`).
 
+### info : Fully qualified domain :
+      a fully qualified domain name (FQDN) has  a trailing dot (.) at the end:
+      
+      nathabee.de.    IN   MX   10   mail.nathabee.de.
+      A Record for mail.nathabee.de: Ensure mail.nathabee.de resolves to your VPS IP (159.69.0.127):
+      
+      If the MX record is missing the trailing dot (.), DNS interprets mail.nathabee.de as a relative name and appends the domain name, resulting in mail.nathabee.de.nathabee.de.
+
 ### **Add an MX Record (Mail Exchange Record)**:
    - **Purpose**: The MX record is used to direct emails for your domain (`nathabee.de`) to your mail server.
    - **What to Do**:
@@ -48,10 +57,11 @@ Here's a breakdown of what exactly you should do within the YourCloudProvider co
      3. Example setup:
         - **Type**: MX
         - **Host**: `@` (represents the root domain, `nathabee.de`)
-        - **Value**: `mail.nathabee.de` (this should point to your server where Postfix is running)
+        - **Value**: `mail.nathabee.de.` (this should point to your server where Postfix is running. "." at the end)
         - **Priority**: `10` (use a low value like `10` to make this server a primary email handler)
 
    - You can create multiple MX records if you have multiple mail servers for failover purposes.
+   
 
 ### **Add an A Record for Your Mail Server**:
    - **Purpose**: Point `mail.nathabee.de` to the correct IP address of your server.
@@ -80,7 +90,7 @@ Here's a breakdown of what exactly you should do within the YourCloudProvider co
      - After setting up DKIM on your mail server (e.g., with `opendkim`), you will get a **public key** that needs to be added to your DNS.
      - Add a **TXT Record** to the DNS configuration in the YourCloudProvider console:
        - **Type**: TXT
-       - **Host**: `default._domainkey`
+       - **Host**: `dkim._domainkey`
        - **Value**: `"v=DKIM1; k=rsa; p=<your-public-key-here>"` (replace `<your-public-key-here>` with the actual public key generated on your server)
 
 ### **Add a DMARC Record**:
@@ -140,4 +150,5 @@ A **PTR Record** (Reverse DNS) maps your **IP address** back to a **hostname**, 
 **Webmail Access (Optional)**:
    - You can use **Roundcube** or similar software to provide webmail access for `evaluation`, `freebus`, `admin`, etc.
    - This webmail can be installed on your YourCloudProvider cloud instance and provide an interface where you can access all configured mailboxes.
+
 

@@ -1,6 +1,6 @@
 # Project Work Log
 
-![⏱️](https://img.icons8.com/emoji/48/stopwatch-emoji.png) **Total Hours Worked**: _29 hours_ (Auto-generated)
+![⏱️](https://img.icons8.com/emoji/48/stopwatch-emoji.png) **Total Hours Worked**: _33 hours_ (Auto-generated)
 ---
 <!-- TOC -->
 - [Project Work Log](#project-work-log)
@@ -12,6 +12,7 @@
     - [November 19, 2024](#november-19-2024)
     - [November 20, 2024](#november-20-2024)
     - [November 21, 2024](#november-21-2024)
+    - [November 22, 2024](#november-22-2024)
     - [November 22, 2024](#november-22-2024)
   - [Week 2 (Dates: from November 25 to November 29, 2024)](#week-2-dates-from-november-25-to-november-29-2024)
     - [November 25, 2024](#november-25-2024)
@@ -112,10 +113,32 @@ This document tracks the number of hours worked each day and provides a brief de
 
 
 
-...
+### November 22, 2024
+
+- **Hours Worked**: 4 hours
+ 
+- **Tasks**:
+  - Gained expertise in email server configuration, focusing on DNS, IMAP, and Postfix settings.
+  - Configured and tested DNS records using tools like MXMailBox and Thunderbird.
+  - Identified and resolved a Postfix misconfiguration preventing port 25 from being used.
+  - Wrote unit tests for DNS records (MX, SPF, DKIM) and IMAP functionality.
+
+- **Theme**: Email System Configuration
+
+- **Progress**:
+  - Verified DNS records passed validation tests (MX, SPF, DKIM).
+  - Successfully configured Thunderbird for email testing.
+  - Resolved issue with Postfix not listening on port 25 by uncommenting the `smtp` service in `/etc/postfix/master.cf`.
+  - Preliminary unit tests for DNS and IMAP in place.
+
+- **Pending Tasks**:
+  - Awaiting outbound port 25 to be opened by the provider for testing server-to-server SMTP traffic.
+  - Write more comprehensive unit and integration tests for SMTP and full email workflow.
 
 
 ---
+
+...
 
 
 ## Week 2 (Dates: from November 25 to November 29, 2024)

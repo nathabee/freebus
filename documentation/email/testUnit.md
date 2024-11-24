@@ -3,8 +3,9 @@
 <!-- TOC -->
   - [Testing the Setup](#testing-the-setup)
     - [0. **Use OpenSSL to Test the Connection**](#0-use-openssl-to-test-the-connection)
-    - [1. **Send Test Emails**](#1-send-test-emails)
-    - [2. **Check the Mailboxes**](#2-check-the-mailboxes)
+    - [**Send Test Emails**](#send-test-emails)
+    - [**Verifying DKIM is Working**](#verifying-dkim-is-working)
+    - [*Check the Mailboxes**](#check-the-mailboxes)
   - [Sending a Test Email from the Command Line](#sending-a-test-email-from-the-command-line)
     - [Install `mailutils` if it's Not Installed](#install-mailutils-if-its-not-installed)
     - [Send a Test Email](#send-a-test-email)
@@ -17,6 +18,8 @@
 
 After configuring **Postfix**, including all of the necessary **DNS records** (A, MX, SPF, DKIM, DMARC, and PTR), you can perform some testing to ensure that everything is working properly. Below, I'll outline different steps you can take to test both **sending and receiving** emails, as well as verify that all security measures like **SPF, DKIM, and DMARC** are working correctly.
 
+ 
+
 ## Testing the Setup
 
 ### 0. **Use OpenSSL to Test the Connection**
@@ -26,7 +29,7 @@ You can also use **openssl** to verify the secure connection to your mail server
    ```
    This will check if the SMTP server supports **STARTTLS** and that the certificate is served correctly.
 
-### 1. **Send Test Emails**
+### **Send Test Emails**
 
 - Send a test email to `evaluation@nathabee.de` and `freebus@nathabee.de`:
   ```bash
@@ -34,7 +37,18 @@ You can also use **openssl** to verify the secure connection to your mail server
   echo "This is a test email for freebus" | mail -s "Test Mailbox" freebus@nathabee.de
   ```
 
-### 2. **Check the Mailboxes**
+### **Verifying DKIM is Working**
+1. **Send a Test Email:**
+   - Use a tool like [Gmail](https://mail.google.com) or another provider to send an email to yourself from your mail server.
+2. **Check the Email Headers:**
+   - In the received email, look for the `DKIM-Signature` header and ensure it matches your key.
+   - Also, look for the `Authentication-Results` header. You should see something like:
+     ```
+     dkim=pass header.i=@nathabee.de
+     ```
+
+
+### *Check the Mailboxes**
 
 Navigate to the mailbox directories to check for incoming mail:
 

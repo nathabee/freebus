@@ -61,8 +61,8 @@ make sure that the necessary ports are open on your server's **firewall** settin
    - Edit `/etc/dovecot/conf.d/10-ssl.conf` to ensure SSL/TLS is enabled:
      ```bash
      ssl = required
-     ssl_cert = </etc/letsencrypt/live/nathabee.de/fullchain.pem
-     ssl_key = </etc/letsencrypt/live/nathabee.de/privkey.pem
+     ssl_cert = </etc/letsencrypt/live/mail.nathabee.de/fullchain.pem
+     ssl_key = </etc/letsencrypt/live/mail.nathabee.de/privkey.pem
      ```
    - Make sure that the `ssl_cert` and `ssl_key` paths are valid and point to your SSL certificate and key.
      
@@ -181,7 +181,7 @@ You need to have an **ingress firewall rule** that allows clients to connect to 
 
 ##  Create certificate
 
-0. certificate storage : in **`/etc/letsencrypt/live/nathabee.de/`**:
+0. certificate storage : in **`/etc/letsencrypt/live/mail.nathabee.de/`**:
    - This contains **symbolic links** to the actual certificate files.
    - This makes it easier to reference the latest certificates in your configuration files. Certbot automatically updates these symbolic links whenever the certificate is renewed.
 
@@ -190,25 +190,18 @@ You need to have an **ingress firewall rule** that allows clients to connect to 
    - **`fullchain.pem`**: The certificate chain that most server software uses.
    - **`chain.pem`**: The CA chain, often used for OCSP stapling.
    - **`cert.pem`**: The end-entity certificate itself. In most configurations, it's better to use `fullchain.pem`.
-
-
-1. **Using Certbot to Obtain the Certificates**:
-   - If you used **Apache** or **Nginx**, you may have used the following command:
-     ```bash
-     sudo certbot --nginx
-     ```
-     or
-     ```bash
-     sudo certbot --apache
-     ```
-   - This command would have automatically detected the domain (`nathabee.de`) and configured the web server for you.
-
-2. **Using Standalone Mode**:
-   - If you weren't using a web server or didn't want to configure it automatically, you might have used:
+ 
      ```bash
      sudo certbot certonly --standalone -d nathabee.de -d mail.nathabee.de
-     ```
-   - This command would have used a temporary web server to validate your domain ownership.
+     ``` 
+
+  this create a unique  certificate for nathabee.de and mail.nathabee.de
+  and it is stored in /etc/letsencrypt/live/nathabee.de/
+
+  remarque : we could have created a differente certifcate for mail.nathabee.de , in this case you must reference this certificate  /etc/letsencrypt/live/mail.nathabee.de/ in the configuration files
+
+
+
 
 ## smtp and smtpd
 

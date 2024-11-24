@@ -4,6 +4,7 @@
   - [Objective Configure MailBox with Dovecot](#objective-configure-mailbox-with-dovecot)
   - [Install Dovecot](#install-dovecot)
     - [Configure Dovecot for Virtual Mailboxes](#configure-dovecot-for-virtual-mailboxes)
+    - [configure dovecot to use IMAP](#configure-dovecot-to-use-imap)
     - [Configure Postfix to Deliver Emails to Dovecot](#configure-postfix-to-deliver-emails-to-dovecot)
     - [Accessing the Mailboxes](#accessing-the-mailboxes)
     - [Summary](#summary)
@@ -131,6 +132,12 @@ This configuration file specifies the mail location for Dovecot.
 
 4. **Create a password file** at `/etc/dovecot/passwd`:
 
+   - has wyour password:
+     ```bash
+   sudo doveadm pw -s SHA512-CRYPT
+     ```
+
+
    - Add virtual users to this file:
 
      ```bash
@@ -140,8 +147,8 @@ This configuration file specifies the mail location for Dovecot.
      - Add entries for `evaluation` and `freebus`:
 
        ```
-       evaluation@nathabee.de:{plain}my_password_evaluation
-       freebus@nathabee.de:{plain}my_password_citybus
+       evaluation@nathabee.de:{SHA512-CRYPT}YOURPASSWORD1
+       freebus@nathabee.de:{SHA512-CRYPT}YOURPASSWORD1
        ```
 
    - **Permissions**:
@@ -257,6 +264,38 @@ Set permissions:
 sudo chown -R vmail:vmail /var/mail/vhosts
 sudo chmod -R 770 /var/mail/vhosts
 ```
+
+### configure dovecot to use IMAP
+
+Ensure that IMAP is enabled in your Dovecot configuration:
+
+1. Open the Dovecot protocol configuration file:
+   ```bash
+   sudo nano /etc/dovecot/conf.d/10-master.conf
+   ```
+
+2. Look for the `service imap-login` section:
+   ```plaintext
+   service imap-login {
+       inet_listener imap {
+           port = 143
+       }
+       inet_listener imaps {
+           port = 993
+           ssl = yes
+       }
+   }
+   ```
+
+3. **Ports:**
+   - Port `143` for unencrypted IMAP (optional; can be disabled to enforce TLS).
+   - Port `993` for encrypted IMAP with SSL/TLS.
+
+4. Save and exit, then restart Dovecot:
+   ```bash
+   sudo systemctl restart dovecot
+   ```
+
 
 ### Configure Postfix to Deliver Emails to Dovecot
 
