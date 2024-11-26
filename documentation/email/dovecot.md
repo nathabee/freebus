@@ -6,7 +6,7 @@
     - [Configure Dovecot for Virtual Mailboxes](#configure-dovecot-for-virtual-mailboxes)
     - [configure dovecot to use IMAP](#configure-dovecot-to-use-imap)
     - [Configure Postfix to Deliver Emails to Dovecot](#configure-postfix-to-deliver-emails-to-dovecot)
-    - [Accessing the Mailboxes](#accessing-the-mailboxes)
+    - [Accessing the Mailboxes with Thunderbird](#accessing-the-mailboxes-with-thunderbird)
     - [Summary](#summary)
 <!-- TOC END -->
 
@@ -56,6 +56,8 @@ Run the following command to install Dovecot:
 ```bash
 sudo apt-get update
 sudo apt-get install dovecot-imapd dovecot-pop3d
+sudo apt install dovecot-sieve dovecot-lmtpd
+
 ```
 
 - **dovecot-imapd**: Adds IMAP support so you can access mailboxes remotely (e.g., using Thunderbird).
@@ -135,6 +137,7 @@ This configuration file specifies the mail location for Dovecot.
    - has wyour password:
      ```bash
    sudo doveadm pw -s SHA512-CRYPT
+   
      ```
 
 
@@ -249,7 +252,7 @@ You can create a user named `vmail` with the following commands:
 
 
 
-#### Step 2.4: Create the Mail Directory Structure
+#### Create the Mail Directory Structure
 
 Create the directories for your virtual mailboxes:
 
@@ -288,7 +291,7 @@ Ensure that IMAP is enabled in your Dovecot configuration:
    ```
 
 3. **Ports:**
-   - Port `143` for unencrypted IMAP (optional; can be disabled to enforce TLS).
+   - OBSOLETE BY ME : Port `143` for unencrypted IMAP (optional; can be disabled to enforce TLS).
    - Port `993` for encrypted IMAP with SSL/TLS.
 
 4. Save and exit, then restart Dovecot:
@@ -337,33 +340,17 @@ lmtp:unix:private/dovecot-lmtp tells Postfix to use the LMTP (Local Mail Transfe
    sudo systemctl reload postfix
    ```
 
-### Accessing the Mailboxes
-
-#### Option A: Use IMAP/POP3 Client (e.g., Thunderbird)
+### Accessing the Mailboxes with Thunderbird
 
 - **IMAP/POP3 Settings**:
   - **IMAP/POP3 Server**: `nathabee.de`
   - **Username**: `evaluation@nathabee.de` or `freebus@nathabee.de`
   - **Password**: The password you set for each user in `/etc/dovecot/passwd`
-  - **IMAP Port**: `143` (unencrypted) or `993` (SSL/TLS)
-  - **POP3 Port**: `110` (unencrypted) or `995` (SSL/TLS)
+  - **IMAP Port**: `143`OBSOLETE (unencrypted) or `993` (SSL/TLS)
+  - **POP3 Port** OBSOLETE : `110` (unencrypted) or `995` (SSL/TLS)
 
-#### Option B: Set Up Webmail Using Roundcube
 
-If you want a **web interface** for accessing emails:
 
-1. **Install Roundcube**:
-
-   ```bash
-   sudo apt-get install roundcube roundcube-core roundcube-mysql
-   ```
-
-2. **Configure Roundcube**:
-   - Access the configuration at `/etc/roundcube/config.inc.php`.
-   - Ensure **Dovecot IMAP** settings are configured correctly to access the mailboxes.
-
-3. **Access Webmail**:
-   - You can access **Roundcube** by visiting `http://your-server-ip/roundcube`.
 
 ### Summary
 

@@ -55,7 +55,7 @@ sudo apt-get install opendkim opendkim-tools
    Mode                    sv
    SubDomains              Yes
 
-   Socket                  inet:12301@localhost
+   Socket                  inet:8891@localhost
    OversignHeaders         From
    ```
 
@@ -63,7 +63,7 @@ sudo apt-get install opendkim opendkim-tools
    - **Domain**: Specifies your domain name (`nathabee.de`).
    - **KeyFile**: Path to the private key that will be used for signing emails.
    - **Selector**: `default` is used as the selector, which is a way to identify the DKIM key.
-   - **Socket**: This tells **OpenDKIM** how to communicate with **Postfix**. It listens on port `12301` on localhost.
+   - **Socket**: This tells **OpenDKIM** how to communicate with **Postfix**. It listens on port `8891` on localhost.
 
 ### Integrate OpenDKIM with Postfix
 
@@ -84,7 +84,7 @@ sudo apt-get install opendkim opendkim-tools
    Find the `SOCKET` line and change it to:
 
    ```bash
-   SOCKET="inet:12301@localhost"
+   SOCKET="inet:8891@localhost"
    ```
 
 ### Generate DKIM Keys
@@ -152,8 +152,8 @@ sudo apt-get install opendkim opendkim-tools
    ```bash
    milter_default_action = accept
    milter_protocol = 6
-   smtpd_milters = inet:localhost:12301
-   non_smtpd_milters = inet:localhost:12301
+   smtpd_milters = inet:localhost:8891
+   non_smtpd_milters = inet:localhost:8891
    ```
 
 ### Restart Services

@@ -1,7 +1,11 @@
 **Test Email Configuration**
 
 <!-- TOC -->
-  - [Testing the Setup](#testing-the-setup)
+  - [Test settup for mailbox setup with physical user ](#test-settup-for-mailbox-setup-with-physical-user)
+    - [Test alias and redirection to extern email from postfix](#test-alias-and-redirection-to-extern-email-from-postfix)
+    - [Test default conf - user evaluation from mail without specifying sender to gmail](#test-default-conf--user-evaluation-from-mail-without-specifying-sender-to-gmail)
+  - [Test virtual mailbox](#test-virtual-mailbox)
+  - [Testing the Setup with mail](#testing-the-setup-with-mail)
     - [0. **Use OpenSSL to Test the Connection**](#0-use-openssl-to-test-the-connection)
     - [**Send Test Emails**](#send-test-emails)
     - [**Verifying DKIM is Working**](#verifying-dkim-is-working)
@@ -19,8 +23,95 @@
 After configuring **Postfix**, including all of the necessary **DNS records** (A, MX, SPF, DKIM, DMARC, and PTR), you can perform some testing to ensure that everything is working properly. Below, I'll outline different steps you can take to test both **sending and receiving** emails, as well as verify that all security measures like **SPF, DKIM, and DMARC** are working correctly.
 
  
+## Test settup for mailbox setup with physical user 
 
-## Testing the Setup
+in the server unix user are created :
+
+
+### Test alias and redirection to extern email from postfix
+
+we want to test redirection from aliases defined in /etc/aliases , where we have configured :
+     - Emails sent to `root` will be forwarded to `postmaster`.
+     - Emails sent to `postmaster` or `abuse` will be forwarded to `extern_user1@gmail.com`.
+
+
+2. **send emails**:
+
+If you're testing from different users on the system, you can switch to another user before sending the test emails:
+```bash
+sudo su - evaluation
+echo "This is a test email to postmaster" | mail -s "Test evaluation to Postmaster" postmaster
+echo "This is a test email to abuse" | mail -s "Test evaluation to abuse" abuse
+echo "This is a test email to freebus" | mail -s "Test evaluation to freebus" freebus
+echo "This is a test email to extern_user2@gmail.com" | mail -s "Test evaluation to extern_user2@gmail.com" extern_user2@gmail.com
+echo "This is a test email to extern_user2@gmail.com" | mail -s "Test evaluation to extern_user2@gmail.com" extern_user2@gmail.com
+```
+aliases is set to redirect to 
+
+```bash
+sudo su - freebus
+date
+echo "This is a test email to postmaster" | mail -s "Test3 freebus to Postmaster" postmaster
+echo "This is a test email to abuse" | mail -s "Test3 freebus to abuse" abuse
+echo "This is a test email to freebus" | mail -s "Test3 freebus to freebus" freebus
+echo "This is a test email to freebus" | mail -s "Test3 freebus to evaluation" evaluation
+echo "This is a test email to  extern_user2@gmail.com" | mail -s "Test3 freebus to  extern_user2@gmail.com"  extern_user2@gmail.com
+echo "This is a test email to extern_user2@gmail.com" | mail -s "Test4 freebus to extern_user2@gmail.com" extern_user2@gmail.com
+date
+```
+ 
+
+
+2. **Monitor Logs**:
+   - Check Postfix logs to confirm emails are being forwarded:
+     ```bash
+     sudo tail -f /var/log/mail.log
+     ```
+   - Look for entries indicating successful forwarding to `extern_user1@gmail.com` and `extern_user2@gmail.com`.
+
+3. **Verify in Gmail**:
+   - Confirm that the test emails are delivered to  `extern_user1@gmail.com` and `extern_user2@gmail.com`.
+   - Check the headers in Gmail for:
+     - DKIM signature
+     - SPF status
+     - Reverse DNS alignment
+
+ 
+ 
+3. **Verify in thunderbird **:
+   - Confirm that the test emails are delivered to  `evaluation@nathabee.de` and `freebus@nathabee.com`.
+   - Check the headers in Gmail for:
+     - DKIM signature
+     - SPF status
+     - Reverse DNS alignment
+
+ 
+ 
+
+### Test default conf - user evaluation from mail without specifying sender to gmail
+
+hier is the default sender that will be used user + 
+   ```bash
+postconf myhostname
+myhostname = mail.nathabee.de
+hostname
+mail.nathabee.de
+
+sudo su - evaluation
+echo "This is a test email with default sender evaluation@mail.nathabee.de"  -s "test default sender  to gmail" extern_user2@gmail.com
+This is a test email with default sender evaluation@mail.nathabee.de -s test default sender extern_user2@gmail.com
+ 
+  ```
+
+
+
+
+
+## Test virtual mailbox
+
+
+
+## Testing the Setup with mail
 
 ### 0. **Use OpenSSL to Test the Connection**
 You can also use **openssl** to verify the secure connection to your mail server:
@@ -36,6 +127,26 @@ You can also use **openssl** to verify the secure connection to your mail server
   echo "This is a test email for evaluation" | mail -s "Test Mailbox" evaluation@nathabee.de
   echo "This is a test email for freebus" | mail -s "Test Mailbox" freebus@nathabee.de
   ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### **Verifying DKIM is Working**
 1. **Send a Test Email:**
@@ -53,8 +164,8 @@ You can also use **openssl** to verify the secure connection to your mail server
 Navigate to the mailbox directories to check for incoming mail:
 
 ```bash
-ls /var/mail/vhosts/nathabee.de/evaluation/new
-ls /var/mail/vhosts/nathabee.de/freebus/new
+sudo ls /var/mail/vhosts/nathabee.de/evaluation/new
+sudo ls /var/mail/vhosts/nathabee.de/freebus/new
 ```
 You should see files inside the `new/` directories for each mailbox, which represent the new email messages.
 

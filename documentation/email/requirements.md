@@ -4,6 +4,10 @@
 - [REQUIREMENTS](#requirements)
   - [configuration and installation overview](#configuration-and-installation-overview)
   - [Overview of Protocol Roles](#overview-of-protocol-roles)
+    - [**Postfix (SMTP)**](#postfix-smtp)
+    - [**Dovecot (LMTP)**](#dovecot-lmtp)
+    - [**Dovecot (IMAP/POP3)**](#dovecot-imappop3)
+    - [**TLS Encryption:**](#tls-encryption)
 <!-- TOC END -->
 
 
@@ -47,20 +51,60 @@ If you want multiple email addresses like `evaluation@nathabee.de`, `freebus@nat
 
 ## Overview of Protocol Roles
 
-Let's clarify the relationship between **Postfix**, **Dovecot**, **IMAP**, **POP3**, and **LMTP**:
+ 
 
-1. **Postfix to Dovecot**: 
-   - **LMTP (Local Mail Transfer Protocol)** is used between **Postfix** and **Dovecot** to **deliver emails to local mailboxes**. This means Postfix uses LMTP to pass incoming mail to Dovecot so it can store it in the appropriate mailbox.
-   - The configuration of **LMTP** allows Postfix to hand over messages that it receives to Dovecot, which then writes those messages into the correct local directory on the server.
+### **Postfix (SMTP)**
+- **Role:** Handles the sending and receiving of emails via the Simple Mail Transfer Protocol (SMTP).
+- **Inbound Mail:**
+  - Postfix receives emails from external mail servers (e.g., Gmail, Outlook) over **SMTP (port 25)**.
+  - After receiving an email, Postfix needs to deliver it to the correct local mailbox, which is handled by Dovecot using **LMTP**.
+- **Outbound Mail:**
+  - Postfix sends emails to external mail servers on behalf of authenticated users (clients or applications) using **SMTP (ports 587 )**.
 
-2. **Dovecot to Users**:
-   - **IMAP** or **POP3** is used by **clients** (like Thunderbird, Roundcube, or any mail application) to access the mailbox contents that **Dovecot** manages.
-   - **IMAP** (`dovecot-imapd`) allows users to keep their emails on the server and access them from multiple devices.
-   - **POP3** (`dovecot-pop3d`) is used when users want to **download** their emails to their local device and potentially remove them from the server.
+---
 
-Thus, **LMTP** is for **internal mail transfer** (Postfix to Dovecot), while **IMAP/POP3** is for **mail access by end users**.
+### **Dovecot (LMTP)**
+- **Role:** Manages local mail delivery and storage of emails in user mailboxes.
+- **Postfix to Dovecot:**
+  - **Protocol Used:** Local Mail Transfer Protocol (LMTP).
+  - **Purpose:** Postfix hands over received emails to Dovecot via LMTP for storage in local directories (e.g., `/var/mail/vhosts/nathabee.de/username`).
+  - **Why LMTP?** LMTP is lightweight, efficient, and natively supported by Dovecot for mail delivery.
+- **Configuration:**
+  - Postfix needs to be configured to use Dovecot's LMTP service, typically listening on a local Unix socket (e.g., `/var/spool/postfix/private/dovecot-lmtp`).
 
+---
 
+### **Dovecot (IMAP/POP3)**
+- **Role:** Provides end-user access to emails stored in mailboxes.
+- **Protocols Used:**
+  - **IMAP (Internet Message Access Protocol):**
+    - Allows users to access and manage their emails directly on the server.
+    - Emails remain on the server, enabling multi-device synchronization.
+    - Default Port: 143 (STARTTLS) or 993 (SSL/TLS).
+  - **POP3 (Post Office Protocol):**
+    - Allows users to download emails to their local device, often removing them from the server after download.
+    - Default Port: 110 (STARTTLS) or 995 (SSL/TLS).
+- **Client Applications:** Users connect to Dovecot via IMAP or POP3 using email clients like Thunderbird, Roundcube, or mobile apps.
+
+---
+
+#### **4. Summary of Protocol Responsibilities**
+
+| **Component** | **Protocol**    | **Role**                                                             | **Default Ports**       |
+|---------------|-----------------|----------------------------------------------------------------------|-------------------------|
+| Postfix       | SMTP            | Sending/receiving emails to/from external servers or users.          | 25 (inbound), 587 (outbound) |
+| Postfix       | LMTP            | Local mail delivery to Dovecot.                                      | Unix socket or TCP (e.g., 24) |
+| Dovecot       | IMAP            | End-user access for reading/managing emails on the server.           | 143 (STARTTLS), 993 (SSL/TLS) |
+
+not used in our configuration :
+| Dovecot       | POP3            | End-user access for downloading emails to local devices.             | 110 (STARTTLS), 995 (SSL/TLS) |
+
+---
+
+###  **TLS Encryption:**
+   - **STARTTLS** or **SSL/TLS** should be configured for all protocols (SMTP, IMAP, POP3, LMTP) to secure communication between clients, servers, and services.
+
+ 
 
 
 ![Email Diagram](png/emailArchitecture.png)

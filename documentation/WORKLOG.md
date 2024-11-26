@@ -1,6 +1,6 @@
 # Project Work Log
 
-![⏱️](https://img.icons8.com/emoji/48/stopwatch-emoji.png) **Total Hours Worked**: _33 hours_ (Auto-generated)
+![⏱️](https://img.icons8.com/emoji/48/stopwatch-emoji.png) **Total Hours Worked**: _40 hours_ (Auto-generated)
 ---
 <!-- TOC -->
 - [Project Work Log](#project-work-log)
@@ -16,6 +16,9 @@
     - [November 22, 2024](#november-22-2024)
   - [Week 2 (Dates: from November 25 to November 29, 2024)](#week-2-dates-from-november-25-to-november-29-2024)
     - [November 25, 2024](#november-25-2024)
+    - [November 26, 2024](#november-26-2024)
+  - [Week 3 (Dates: from December 1 to December 5, 2024)](#week-3-dates-from-december-1-to-december-5-2024)
+    - [December 1, 2024](#december-1-2024)
   - [Tips for Using This Log](#tips-for-using-this-log)
 <!-- TOC END -->
 
@@ -137,13 +140,56 @@ This document tracks the number of hours worked each day and provides a brief de
 
 
 ---
-
-...
+ 
 
 
 ## Week 2 (Dates: from November 25 to November 29, 2024)
 
 ###  November 25, 2024
+- **Hours Worked**: 2 hours
+
+- **Tasks**:
+- Gained expertise in email server configuration, focusing on DNS, IMAP, and Postfix settings.
+- dovecot authentification
+
+- **Theme**: Email System Configuration
+
+- **Progress**:
+  - Troubleshooting LMTP dovecot 
+  - outbound port 25 is opened by the provider for testing server-to-server SMTP traffic. 
+
+
+ 
+
+###  November 26, 2024
+- **Hours Worked**: 5 hours
+
+- **Tasks**:
+- Gained expertise in email server configuration, focusing on DNS, IMAP, and Postfix settings.
+
+- **Theme**: Email System Configuration
+
+- **Progress**:
+- follow installation guide from https://gist.github.com/howyay/57982e6ba9eedd3a5662c518f1b985c7#0x05-install-and-configure-postfix
+  - Reset installation  (remove + reinstalll) : Postfix, dqim, dovecot
+  - create linux user for email instead of virtual box 
+  - made alias to forward postmaster, abuse.. according RCF
+  - port 25 activated from provider : tested and works
+  - trouble shooting IPV6 : posfix conf, host cloud conf, correction of DNS reverse, and AAAA records
+  - sucessfull test mail in unit test (dqim, send to extern, send in user/Maildir)
+
+ 
+
+- **Pending Tasks**:
+  - dovecot authentification in database and parametrisation
+ 
+---
+ 
+
+
+## Week 3 (Dates: from December 1 to December 5, 2024)
+
+###  December 1, 2024
 - **Hours Worked**: 0 hours
 - **Tasks**:
   - 

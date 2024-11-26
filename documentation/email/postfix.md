@@ -10,6 +10,7 @@
     - [check that postfix listnen on PORT 25](#check-that-postfix-listnen-on-port-25)
     - [check that postfix PORT 25 is accessible from outside VPS in inbound](#check-that-postfix-port-25-is-accessible-from-outside-vps-in-inbound)
     - [check port 25 acessible in outbound :](#check-port-25-acessible-in-outbound)
+  - [seeting config for real user (alternative to  Virtual Mailboxes)](#seeting-config-for-real-user-alternative-to--virtual-mailboxes)
   - [**Setting Up Virtual Mailboxes**:](#setting-up-virtual-mailboxes)
   - [Using Aliases for Forwarding  (TO BE TESTED )](#using-aliases-for-forwarding--to-be-tested)
 <!-- TOC END -->
@@ -111,6 +112,22 @@ telnet gmail-smtp-in.l.google.com 25
 
 - sometimes it could be necessary to ask your VPS provider to unblock port 25 if it blocks it
 
+## seeting config for real user (alternative to  Virtual Mailboxes)
+
+```plaintext
+sudo useradd  -m -s /bin/bash evaluation
+sudo passwd evaluation
+New password: 
+Retype new password: 
+passwd: password updated successfully
+
+sudo useradd  -m -s /bin/bash freebus
+sudo passwd freebus
+New password: 
+Retype new password: 
+passwd: password updated successfully
+
+```
 
  
 ## **Setting Up Virtual Mailboxes**:
@@ -165,3 +182,4 @@ If you don't need individual mailboxes for each address and just want emails to 
    sudo systemctl reload postfix
    ```
 This way, you can receive all application-specific emails in a single admin mailbox.
+
