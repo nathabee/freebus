@@ -15,8 +15,9 @@
     - [November 22, 2024](#november-22-2024)
     - [November 22, 2024](#november-22-2024)
   - [Week 2 (Dates: from November 25 to November 29, 2024)](#week-2-dates-from-november-25-to-november-29-2024)
-    - [November 25, 2024](#november-25-2024)
-    - [November 26, 2024](#november-26-2024)
+    - [**November 25, 2024**](#november-25-2024)
+    - [**November 26, 2024**](#november-26-2024)
+    - [**Pending Tasks**:](#pending-tasks)
   - [Week 3 (Dates: from December 1 to December 5, 2024)](#week-3-dates-from-december-1-to-december-5-2024)
     - [December 1, 2024](#december-1-2024)
   - [Tips for Using This Log](#tips-for-using-this-log)
@@ -142,49 +143,52 @@ This document tracks the number of hours worked each day and provides a brief de
 ---
  
 
-
 ## Week 2 (Dates: from November 25 to November 29, 2024)
 
-###  November 25, 2024
-- **Hours Worked**: 2 hours
-
-- **Tasks**:
-- Gained expertise in email server configuration, focusing on DNS, IMAP, and Postfix settings.
-- dovecot authentification
-
-- **Theme**: Email System Configuration
-
-- **Progress**:
-  - Troubleshooting LMTP dovecot 
-  - outbound port 25 is opened by the provider for testing server-to-server SMTP traffic. 
-
-
- 
-
-###  November 26, 2024
-- **Hours Worked**: 5 hours
-
-- **Tasks**:
-- Gained expertise in email server configuration, focusing on DNS, IMAP, and Postfix settings.
-
-- **Theme**: Email System Configuration
-
-- **Progress**:
-- follow installation guide from https://gist.github.com/howyay/57982e6ba9eedd3a5662c518f1b985c7#0x05-install-and-configure-postfix
-  - Reset installation  (remove + reinstalll) : Postfix, dqim, dovecot
-  - create linux user for email instead of virtual box 
-  - made alias to forward postmaster, abuse.. according RCF
-  - port 25 activated from provider : tested and works
-  - trouble shooting IPV6 : posfix conf, host cloud conf, correction of DNS reverse, and AAAA records
-  - sucessfull test mail in unit test (dqim, send to extern, send in user/Maildir)
-
- 
-
-- **Pending Tasks**:
-  - dovecot authentification in database and parametrisation
- 
 ---
- 
+
+### **November 25, 2024**
+- **Hours Worked**: 2 hours
+- **Tasks**:
+  - Gained expertise in email server configuration, focusing on DNS, IMAP, and Postfix settings.
+  - Explored Dovecot authentication mechanisms.
+- **Theme**: Email System Configuration
+- **Progress**:
+  - Troubleshot LMTP with Dovecot.
+  - Verified outbound port 25 activation by the provider for testing server-to-server SMTP traffic.
+
+---
+
+### **November 26, 2024**
+- **Hours Worked**: 5 hours
+- **Tasks**:
+  - Continued work on email server configuration, with an emphasis on DNS, IMAP, Postfix, and user management.
+- **Theme**: Email System Configuration
+- **Progress**:
+  - Followed and adapted the installation guide from [Howyay's Postfix guide](https://gist.github.com/howyay/57982e6ba9eedd3a5662c518f1b985c7#0x05-install-and-configure-postfix).
+  - Reset installation (removed and reinstalled):
+    - Postfix
+    - OpenDKIM
+    - Dovecot
+  - Migrated email users from virtual box accounts to Linux system users.
+  - Created and configured email aliases (`postmaster`, `abuse`, `root`) to comply with RFC standards.
+  - Confirmed port 25 activation by the provider and tested SMTP communication successfully.
+  - Troubleshot IPv6-related issues:
+    - Corrected Postfix configurations for IPv6 compatibility.
+    - Reviewed and updated cloud configurations for `/etc/hosts`.
+    - Fixed DNS reverse records (PTR) and AAAA records to ensure proper forward and reverse DNS alignment.
+  - Successfully tested email delivery:
+    - Verified DKIM signing.
+    - Sent emails to external domains.
+    - Confirmed delivery to local Maildir for system users.
+
+---
+
+### **Pending Tasks**:
+- Configure Dovecot authentication to use a database backend.
+- Complete Dovecot parametrization for IMAP/POP3 access. 
+
+--- 
 
 
 ## Week 3 (Dates: from December 1 to December 5, 2024)

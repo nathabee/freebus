@@ -22,7 +22,7 @@ openssl s_client -connect mail.nathabee.de:993
 - Look for `SSL handshake has read` to confirm TLS encryption.
 - Test authentication manually:
   ```plaintext
-  a LOGIN citybus@nathabee.de yourpassword
+  a LOGIN evaluation@nathabee.de yourpassword
   ```
 
   do not rmember the "a" for LOGIN
